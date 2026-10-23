@@ -1,40 +1,44 @@
-# Nhật ký quyết định
+# Decision log
 
-Mới nhất ở trên. Mỗi mục: ngày, quyết định, lý do.
+Newest first. Each entry: date, decision, reason.
 
-## 2026-10-23: Repo `ecosystem-knowledge` là nơi chia sẻ kiến thức giữa các project
+## 2026-10-23: This repo is written in English
 
-Mỗi project Claude có bộ nhớ riêng và không tự đồng bộ. Repo này được thêm vào các project (Ecosystem, Event Manager, Journei), và instructions của mỗi project yêu cầu đọc repo này trước khi làm, ghi lại quyết định ảnh hưởng tới app khác. Việc cần làm vẫn ở Linear.
+Files, commits and PRs in this repo use English; chat with Dang stays in Vietnamese.
 
-## 2026-10-22: Chỉ có môi trường production
+## 2026-10-23: The `ecosystem-knowledge` repo is how projects share knowledge
 
-Mock mode sẽ bị bỏ (DAN-108). Không có dev/staging, không `.env` trên máy dev; thay đổi được kiểm tra trên site thật sau khi deploy. Doppler chỉ giữ environment `prd`. Xem [workflow.md](workflow.md).
+Each Claude project has its own memory and does not sync with the others. This repo is added to every project (Ecosystem, Event Manager, Journei), and each project's instructions say to read it before working and to record decisions that affect other apps. Work items stay in Linear.
 
-## 2026-10-22: Giữ cấu trúc Doppler có reference chéo project
+## 2026-10-22: Production is the only environment
 
-Dang đã thử `${shared.prd.X}` chạy được trên gói miễn phí, nên giữ thiết kế: project `shared` + một project mỗi app. Rủi ro chấp nhận: Doppler có thể chặn tính năng này (tài liệu ghi là gói trả phí). Phương án dự phòng ở [infra/doppler.md](infra/doppler.md).
+Mock mode will be removed (DAN-108). No dev or staging environment and no `.env` on dev machines; changes are verified on the live site after deploy. Doppler keeps only the `prd` environment. See [workflow.md](workflow.md).
 
-## 2026-10-22: Journei dùng Clerk app chung, không tạo app riêng
+## 2026-10-22: Keep the Doppler layout with cross-project references
 
-Code Journei đã dùng Clerk nhưng chưa có Clerk app và key. Journei sẽ đợi Clerk app chung (DAN-82) và đọc key qua Doppler `shared`.
+Dang verified that `${shared.prd.X}` works on the free plan, so the design stays: a `shared` project plus one project per app. Accepted risk: Doppler may block this feature (its docs list it as paid). The fallback is in [infra/doppler.md](infra/doppler.md).
 
-## 2026-10-22: Event Manager dùng instance Development của Clerk ở production
+## 2026-10-22: Journei uses the shared Clerk app, not its own
 
-Lựa chọn có chủ đích (`pk_test_` / `sk_test_`); không định tạo Production instance cho Clerk app cũ của Event Manager. Event Manager sẽ chuyển sang Clerk app chung (DAN-100).
+Journei's code already uses Clerk but has no Clerk app or keys. Journei waits for the shared Clerk app (DAN-82) and reads its keys from the Doppler `shared` project.
 
-## 2026-10-12: Tạo Clerk application MỚI cho cả hệ sinh thái
+## 2026-10-22: Event Manager uses Clerk's Development instance in production
 
-Thay cho đề xuất ban đầu (dùng lại Clerk app của Event Manager), để tránh nhầm lẫn về sau. Production instance gắn root domain `dantepham.site` để SSO qua mọi subdomain. Event Manager cũng phải migrate (DAN-100).
+Deliberate choice (`pk_test_` / `sk_test_`); no Production instance is planned for Event Manager's old Clerk app. Event Manager will move to the shared Clerk app (DAN-100).
 
-## 2026-10-12: Quản lý secret tập trung bằng Doppler
+## 2026-10-12: Create a NEW Clerk application for the whole ecosystem
 
-Làm trước Clerk (DAN-99 chặn DAN-82). DAN-99 đã Done ngày 2026-10-22.
+Replaces the original proposal (reuse Event Manager's Clerk app) to avoid confusion later. Its Production instance is tied to the root domain `dantepham.site` so SSO works across all subdomains. Event Manager must migrate too (DAN-100).
 
-## 2026-10-12: Kiến trúc chung
+## 2026-10-12: Centralize secrets in Doppler
 
-- Clerk user ID là danh tính chung; không app nào tự quản lý đăng nhập.
-- Một bảng user mỏng `core.users` đồng bộ bằng Clerk webhook, thay cho bảng User riêng của từng app.
-- Chia sẻ dữ liệu qua API (GraphQL của app kia, dùng token Clerk của người dùng), không đọc thẳng DB của app khác. Chỉ `core.users` là dữ liệu dùng chung.
-- Liên kết giữa app lưu dạng tham chiếu `{ app, id }`, không copy dữ liệu.
+Done before Clerk (DAN-99 blocks DAN-82). DAN-99 was completed on 2026-10-22.
 
-Nguồn: báo cáo phân tích khả thi ngày 2026-10-12. Chi tiết ở [architecture.md](architecture.md).
+## 2026-10-12: Shared architecture
+
+- The Clerk user ID is the shared identity; no app manages sign-in on its own.
+- One thin user table, `core.users`, synced by a Clerk webhook, replaces each app's own User table.
+- Data is shared through APIs (the other app's GraphQL, called with the user's Clerk token), never by reading another app's database. Only `core.users` is shared data.
+- Cross-app links are stored as `{ app, id }` references, not copies.
+
+Source: the feasibility report of 2026-10-12. Details in [architecture.md](architecture.md).

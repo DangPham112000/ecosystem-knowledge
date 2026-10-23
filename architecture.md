@@ -1,49 +1,49 @@
-# Kiến trúc đích
+# Target architecture
 
-Dựa trên báo cáo phân tích khả thi ngày 2026-10-12, đã điều chỉnh theo quyết định dùng Clerk app mới. Chưa làm xong; tiến độ ở [linear.md](linear.md).
+Based on the feasibility report of 2026-10-12, adjusted for the decision to create a new Clerk app. Not finished yet; progress is in [linear.md](linear.md).
 
 ```
-          Clerk (1 application MỚI, production trên dantepham.site)
+       Clerk (one NEW application, production on dantepham.site)
                          │  session token (JWT)
    ┌──────────────┬──────┴───────┬──────────────┐
 events.*      journei         bills          news
    │              │              │              │
-   └──── verify token bằng cùng CLERK_SECRET_KEY ┘
+   └──── verify the token with the same CLERK_SECRET_KEY ┘
                          │
-          MongoDB chung (1 instance, sau DAN-90)
-          ├─ core.users      ← đồng bộ từ Clerk webhook (DAN-91)
+          Shared MongoDB (one instance, after DAN-90)
+          ├─ core.users      ← synced from the Clerk webhook (DAN-91)
           ├─ event-manager
           ├─ journey-planner
           ├─ bill-splitter
           └─ news
 ```
 
-## Đăng nhập chung (SSO)
+## Shared sign-in (SSO)
 
-- Production instance của Clerk gắn root domain `dantepham.site` đặt cookie phiên ở root, nên đăng nhập một app là đăng nhập mọi subdomain. Không cần satellite domain (gói trả phí) miễn là mọi app ở `*.dantepham.site`.
-- Mọi backend verify token bằng cùng `CLERK_SECRET_KEY`; `CLERK_AUTHORIZED_PARTIES` liệt kê đủ các subdomain.
-- Google login giữ được bằng cách bật Google trong Clerk.
-- Người dùng cũ được gắn theo email ở lần đăng nhập đầu (Event Manager và Journei đã có logic này trong `backend/src/auth.ts`).
+- A Clerk Production instance on the root domain `dantepham.site` sets the session cookie on the root, so signing in to one app signs you in on every subdomain. No satellite domains (a paid feature) are needed as long as every app lives under `*.dantepham.site`.
+- Every backend verifies tokens with the same `CLERK_SECRET_KEY`; `CLERK_AUTHORIZED_PARTIES` lists all subdomains.
+- Google sign-in stays available by enabling Google in Clerk.
+- Existing users are linked by email on their first sign-in (Event Manager and Journei already do this in `backend/src/auth.ts`).
 
-## Bảng user chung
+## Shared users
 
-- Collection `core.users` (email, tên, avatar, clerkId), cập nhật bởi webhook `user.created / user.updated / user.deleted`.
-- Dữ liệu nghiệp vụ của từng app tham chiếu người dùng bằng `clerkId`.
-- Cần gom Mongo về một instance (mỗi app vẫn database riêng); tiết kiệm RAM trên VPS.
+- A `core.users` collection (email, name, avatar, clerkId), updated by the `user.created / user.updated / user.deleted` webhooks.
+- Each app's business data references users by `clerkId`.
+- Requires consolidating MongoDB into one instance (each app keeps its own database); this also saves RAM on the VPS.
 
-## Chia sẻ dữ liệu
+## Data sharing
 
-App A gọi GraphQL của app B bằng chính token Clerk của người dùng. Các luồng đã đề xuất (DAN-94..98):
+App A calls app B's GraphQL API with the user's own Clerk token. Proposed flows (DAN-94..98):
 
-- Journei → Bill Splitter: tạo splitter cho chuyến đi, mời sẵn người đi cùng.
-- Journei ↔ Event Manager: hoạt động trong lịch trình hiện thành sự kiện, kiểm tra trùng giờ (`find_conflicts`).
-- Event Manager → Bill Splitter: quỹ chung cho sự kiện.
-- Danh bạ chung "người tôi hay đi cùng".
-- News → Journei / Event Manager: tin theo điểm đến hoặc chủ đề sự kiện.
+- Journei → Bill Splitter: create a splitter for a trip with the travellers already invited.
+- Journei ↔ Event Manager: itinerary activities appear as calendar events, with overlap checks (`find_conflicts`).
+- Event Manager → Bill Splitter: a shared fund for an event.
+- A shared "people I often go with" contact list.
+- News → Journei / Event Manager: news about a trip's destination or an event's topic.
 
-## Rủi ro
+## Risks
 
-- Clerk là điểm lỗi chung cho mọi app.
-- Hạn mức gói miễn phí của Clerk tính chung cho cả hệ sinh thái (chưa kiểm chứng con số).
-- App đặt ngoài `*.dantepham.site` sẽ cần satellite domain (trả phí).
-- Đọc thẳng DB của nhau sẽ tạo coupling; chỉ `core.users` được dùng chung.
+- Clerk is a single point of failure for every app.
+- Clerk's free-plan limits count across the whole ecosystem (the exact numbers are not verified).
+- An app outside `*.dantepham.site` would need satellite domains (paid).
+- Reading each other's databases creates coupling; only `core.users` is shared.
