@@ -1,26 +1,31 @@
-# Cách dùng và cập nhật repo này
+# Using and updating this repo
 
-## Khi bắt đầu một việc
+## Language
 
-1. Đọc [README.md](README.md), rồi file của app mình đang làm trong `apps/` và [decisions.md](decisions.md).
-2. Nếu việc đụng tới đăng nhập, secret hay deploy, đọc thêm file tương ứng trong `infra/`.
+**Everything in this repo is written in English**: files, commit messages and PR descriptions. Chat with Dang stays in Vietnamese. Proper names that are Vietnamese (such as the Linear project name) are kept as they are.
 
-## Khi nào phải ghi vào đây
+## When starting a task
 
-Ghi lại khi một thay đổi **ảnh hưởng tới app khác hoặc tới hạ tầng chung**, ví dụ:
+1. Read [README.md](README.md), then the file for the app you are working on in `apps/`, and [decisions.md](decisions.md).
+2. If the task touches sign-in, secrets or deployment, also read the matching file in `infra/`.
 
-- Quyết định kiến trúc (Clerk, user chung, cách chia sẻ dữ liệu, gom Mongo).
-- Thay đổi cấu trúc Doppler, tên secret dùng chung, thư mục deploy trên VPS, subdomain.
-- Trạng thái của một app thay đổi theo cách app khác cần biết (đã chuyển sang Clerk chung, đã có API mới để app khác gọi).
-- Thay đổi cách làm việc của Dang (ví dụ bỏ mock mode).
+## When to write here
 
-Chi tiết chỉ dùng trong một app (component, resolver, bug nội bộ) thì để trong repo của app đó, không ghi ở đây.
+Record a change here when it **affects another app or shared infrastructure**, for example:
 
-## Cách ghi
+- Architecture decisions (Clerk, shared users, how data is shared, consolidating MongoDB).
+- Changes to the Doppler layout, shared secret names, VPS deploy directories or subdomains.
+- An app's status changing in a way other apps need to know (moved to the shared Clerk app, exposes a new API other apps can call).
+- Changes to how Dang works (for example dropping mock mode).
 
-- Quyết định mới: thêm một mục **ở đầu** [decisions.md](decisions.md) với ngày (YYYY-MM-DD), quyết định, lý do, issue Linear nếu có.
-- Sửa file liên quan cho đúng hiện trạng, không để nội dung cũ mâu thuẫn. Thông tin bị thay thế thì xoá hoặc ghi "đã thay bằng ... (ngày)".
-- Cập nhật dòng "Cập nhật lần cuối" trong README.
-- File ngắn, viết tiếng Việt, tên biến/lệnh giữ nguyên tiếng Anh. Ngày luôn ghi tuyệt đối.
-- **Không bao giờ ghi secret** (key, token, mật khẩu, connection string có mật khẩu). Chỉ ghi tên biến và nơi chứa nó trong Doppler.
-- Commit thẳng vào `main` hoặc mở PR đều được; commit message nói rõ app nào thay đổi.
+Details that only matter inside one app (components, resolvers, internal bugs) belong in that app's repo, not here.
+
+## How to write
+
+- New decision: add an entry **at the top** of [decisions.md](decisions.md) with the date (YYYY-MM-DD), the decision, the reason and the Linear issue if any.
+- Update the related files so they match the current state; do not leave contradicting old content. Delete superseded information or mark it "replaced by ... (date)".
+- Update the "Last updated" line in the README.
+- Keep files short. Always use absolute dates.
+- **Never write secrets** (keys, tokens, passwords, connection strings with passwords). Write only the variable name and where it lives in Doppler.
+- **This repo is public**: also leave out server IPs, SSH users and anything else that helps an attacker.
+- Committing directly to `main` or opening a PR are both fine; the commit message should say which app changed.

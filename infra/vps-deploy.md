@@ -1,15 +1,15 @@
-# VPS và deploy
+# VPS and deploy
 
-- Một VPS chung cho mọi app, nằm sau Cloudflare (TLS) và nginx. Repo này public nên **không ghi IP VPS hay user SSH**; xem GitHub Secrets `VPS_HOST`, `VPS_USERNAME` của từng repo app.
-- Mỗi app: GitHub Actions build Docker image, push lên GHCR, SSH vào VPS, `docker compose pull` rồi `doppler run -- docker compose up -d`.
-- Push lên `main` của repo app = deploy production.
+- One VPS shared by all apps, behind Cloudflare (TLS) and nginx. This repo is public, so **server IPs and SSH users are not recorded here**; see the `VPS_HOST` and `VPS_USERNAME` GitHub Secrets of each app repo.
+- Per app: GitHub Actions builds Docker images, pushes them to GHCR, SSHes into the VPS, runs `docker compose pull`, then `doppler run -- docker compose up -d`.
+- Pushing to an app repo's `main` = deploying to production.
 
-| App | Thư mục trên VPS | Ghi chú |
+| App | Directory on the VPS | Notes |
 | --- | --- | --- |
-| Event Manager | `/opt/event-manager` | Đọc secret từ Doppler |
-| Journei | `~/journei` | Sẽ chuyển sang `/opt/journei` (DAN-107). `~/journei/.env` còn biến Google OAuth/JWT cũ, code không dùng nữa; giữ tới khi redeploy qua Doppler |
+| Event Manager | `/opt/event-manager` | Reads secrets from Doppler |
+| Journei | `~/journei` | Will move to `/opt/journei` (DAN-107). `~/journei/.env` still holds old Google OAuth/JWT variables the code no longer uses; keep it until the Doppler redeploy |
 | News | `/opt/news` | |
-| Bill Splitter | chưa deploy | Chưa có workflow deploy |
+| Bill Splitter | not deployed | No deploy workflow yet |
 
-- Mỗi app hiện chạy container `mongo:7` riêng; kế hoạch gom về một instance (DAN-90).
-- Journei: header `Cross-Origin-Opener-Policy: same-origin-allow-popups` phải giống nhau ở `frontend/vite.config.ts`, `frontend/nginx.conf`, `nginx/nginx.conf`. Biến backend mới phải thêm vào `environment:` trong `docker-compose.yml`.
+- Each app currently runs its own `mongo:7` container; the plan is to consolidate into one instance (DAN-90).
+- Journei: the `Cross-Origin-Opener-Policy: same-origin-allow-popups` header must match in `frontend/vite.config.ts`, `frontend/nginx.conf` and `nginx/nginx.conf`. New backend variables must be added to `environment:` in `docker-compose.yml`.

@@ -2,7 +2,7 @@
 
 - Repo: [DangPham112000/EventManager](https://github.com/DangPham112000/EventManager). URL: `https://events.dantepham.site`.
 - Stack: pnpm workspace, TypeScript; backend Express + Apollo GraphQL + MongoDB/Mongoose; frontend React + Vite; Docker Compose + nginx.
-- Đăng nhập: Clerk app riêng, instance Development dùng cả ở production (có chủ đích). `User { email, name, clerkId, googleId, avatar }`; lần đăng nhập đầu tự gắn vào user cũ theo email (`backend/src/auth.ts`). Có Clerk OAuth cho MCP/AI agent.
-- Có `find_conflicts` (kiểm tra trùng giờ), dùng được cho luồng Journei ↔ Event Manager.
-- Secret: Doppler project `event-manager`, đã deploy qua Doppler (PR #26, 2026-10-23). VPS `/opt/event-manager`.
-- Việc tiếp theo: chuyển sang Clerk app chung (DAN-100), đọc `core.users` (DAN-92), bỏ mock mode (DAN-108).
+- Sign-in: its own Clerk app, Development instance used in production too (by choice). `User { email, name, clerkId, googleId, avatar }`; on first sign-in a user is linked to an existing user by email (`backend/src/auth.ts`). Clerk OAuth for MCP/AI agents.
+- Has `find_conflicts` (overlap check), useful for the Journei ↔ Event Manager flow.
+- Secrets: Doppler project `event-manager`, deployed through Doppler since PR #26 (2026-10-23). VPS directory `/opt/event-manager`.
+- Next: move to the shared Clerk app (DAN-100), read `core.users` (DAN-92), remove mock mode (DAN-108).

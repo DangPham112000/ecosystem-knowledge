@@ -1,39 +1,39 @@
 # Doppler
 
-_DAN-99 Done ngày 2026-10-22. Hướng dẫn chi tiết: [Hướng dẫn setup Doppler (DAN-99)](https://claude.ai/artifact/5Nku2RXAowyjbveJGygo7Y)._
+_DAN-99 completed on 2026-10-22. Step-by-step guide (Vietnamese): [Hướng dẫn setup Doppler (DAN-99)](https://claude.ai/artifact/5Nku2RXAowyjbveJGygo7Y)._
 
-## Cấu trúc
+## Layout
 
-| Project | Config | Chứa gì |
+| Project | Config | Contents |
 | --- | --- | --- |
-| `shared` | `prd` | Key dùng chung `CLERK_*` (thêm ở DAN-82); các app reference sang |
-| `event-manager` | `prd` | Secret riêng + reference sang `shared` |
-| `journei` | `prd` | Secret riêng + reference sang `shared` |
-| `bill-splitter` | `prd` | Secret riêng (chưa có secret production) |
-| `news` | `prd` | Secret riêng |
+| `shared` | `prd` | Shared `CLERK_*` keys (added in DAN-82); apps reference them |
+| `event-manager` | `prd` | App secrets + references to `shared` |
+| `journei` | `prd` | App secrets + references to `shared` |
+| `bill-splitter` | `prd` | App secrets (no production secrets yet) |
+| `news` | `prd` | App secrets |
 
-- Mỗi project **chỉ một environment `prd`** (đã xoá `dev`, `stg` ngày 2026-10-22).
-- Reference chéo project: `${shared.prd.CLERK_SECRET_KEY}`. Reference trong cùng config: `${CLERK_PUBLISHABLE_KEY}`.
-- Gói miễn phí: 10 project, đang dùng 5.
+- Each project has **only the `prd` environment** (`dev` and `stg` were deleted on 2026-10-22).
+- Cross-project reference: `${shared.prd.CLERK_SECRET_KEY}`. Same-config reference: `${CLERK_PUBLISHABLE_KEY}`.
+- Free plan: 10 projects, 5 in use.
 
-## Token và deploy
+## Tokens and deploy
 
-- Mỗi app hai service token trên config `prd`, quyền Read:
-  - `vps-<app>`: gắn trên VPS theo thư mục app, `doppler configure set token --scope /opt/<app>`.
-  - `github-actions-<app>`: lưu thành GitHub secret `DOPPLER_TOKEN`, dùng để lấy các key `VITE_*` lúc build frontend.
-- Deploy trên VPS: `doppler run -- docker compose up -d --remove-orphans`. `docker-compose.yml` không cần sửa.
-- Đổi secret: chạy lại workflow deploy. Đổi publishable key: phải build lại frontend.
-- Secret phục vụ deploy (`VPS_HOST`, `VPS_SSH_KEY`, `GH_PAT`, `GHCR_PAT`) vẫn ở GitHub Secrets.
-- `MONGODB_URI` ở production là hostname nội bộ Docker, không phải secret, để trong `docker-compose.yml` tới DAN-90.
+- Each app has two read-only service tokens on its `prd` config:
+  - `vps-<app>`: set on the VPS, scoped to the app directory with `doppler configure set token --scope /opt/<app>`.
+  - `github-actions-<app>`: stored as the GitHub secret `DOPPLER_TOKEN`, used to fetch `VITE_*` keys when building the frontend.
+- Deploy on the VPS: `doppler run -- docker compose up -d --remove-orphans`. `docker-compose.yml` needs no changes.
+- Changing a secret: re-run the deploy workflow. Changing the publishable key: the frontend must be rebuilt.
+- Deploy secrets (`VPS_HOST`, `VPS_SSH_KEY`, `GH_PAT`, `GHCR_PAT`) stay in GitHub Secrets.
+- In production `MONGODB_URI` is an internal Docker hostname, not a secret, so it stays in `docker-compose.yml` until DAN-90.
 
-## Trạng thái từng app
+## Status per app
 
-- Event Manager: deploy qua Doppler (EventManager PR #26), token scope `/opt/event-manager`.
-- Journei: chưa. Các bước Doppler cho Journei ghi trong comment của DAN-82, làm sau DAN-107 (chuyển thư mục deploy sang `/opt/journei`).
-- News, Bill Splitter: làm khi gắn Clerk (DAN-86, DAN-84).
+- Event Manager: deploys through Doppler (EventManager PR #26), token scoped to `/opt/event-manager`.
+- Journei: not yet. Its Doppler steps are in a comment on DAN-82, to be done after DAN-107 (move the deploy directory to `/opt/journei`).
+- News, Bill Splitter: done when they get Clerk (DAN-86, DAN-84).
 
-## Rủi ro
+## Risk
 
-Tài liệu Doppler ghi reference chéo project là tính năng trả phí, nhưng hiện vẫn chạy trên gói miễn phí. Nếu bị chặn: gom về một project với branch config kế thừa config gốc, hoặc chép key Clerk vào từng app.
+Doppler's docs list cross-project references as a paid feature, but they currently work on the free plan. If Doppler blocks them: move to a single project with branch configs inheriting from the root config, or copy the Clerk keys into each app.
 
-Lịch sử git của 4 repo app đã được quét ngày 2026-10-22: không có key bị lộ.
+The git history of all four app repos was scanned on 2026-10-22: no leaked keys.
