@@ -6,7 +6,7 @@ _DAN-99 completed on 2026-10-22. Step-by-step guide (Vietnamese): [Hướng dẫ
 
 | Project | Config | Contents |
 | --- | --- | --- |
-| `shared` | `prd` | Shared `CLERK_*` keys (added in DAN-82); apps reference them |
+| `shared` | `prd` | `CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `CLERK_AUTHORIZED_PARTIES` (production keys, added 2026-10-24 in DAN-82); apps reference them |
 | `event-manager` | `prd` | App secrets + references to `shared` |
 | `journei` | `prd` | App secrets + references to `shared` |
 | `bill-splitter` | `prd` | App secrets (no production secrets yet) |
@@ -29,7 +29,7 @@ _DAN-99 completed on 2026-10-22. Step-by-step guide (Vietnamese): [Hướng dẫ
 ## Status per app
 
 - Event Manager: deploys through Doppler (EventManager PR #26), token scoped to `/opt/event-manager`.
-- Journei: not yet. Its Doppler steps are in a comment on DAN-82, to be done after DAN-107 (move the deploy directory to `/opt/journei`).
+- Journei: not yet. Its Doppler steps are in a comment on DAN-82, to be done in DAN-85 after DAN-107 (move the deploy directory to `/opt/journei`).
 - News, Bill Splitter: done when they get Clerk (DAN-86, DAN-84).
 
 ## Risk

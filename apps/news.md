@@ -5,4 +5,4 @@
 - AI agents push news per topic through MCP (`POST /mcp`: `list_topics`, `list_news`, `upsert_news`) and the `upsertArticles` mutation; both require an API key `Authorization: Bearer nwk_...` (created with `pnpm --filter backend apikey create <name>`).
 - No users and no Clerk yet. When per-user features arrive: store `clerkId` and verify Clerk tokens (DAN-86).
 - Secrets: Doppler project `news` (`RATE_LIMIT_PER_MIN`, ...).
-- Next: confirm DAN-83 is done thanks to API keys, DAN-86, DAN-108.
+- Next: DAN-86 (DAN-83 closed 2026-10-24: writes already need an API key), DAN-108.
