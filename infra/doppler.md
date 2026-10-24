@@ -29,7 +29,8 @@ _DAN-99 completed on 2026-10-22. Step-by-step guide (Vietnamese): [Hướng dẫ
 ## Status per app
 
 - Event Manager: deploys through Doppler (EventManager PR #26), token scoped to `/opt/event-manager`.
-- Journei: not yet. Its Doppler steps are in a comment on DAN-82, to be done in DAN-85 after DAN-107 (move the deploy directory to `/opt/journei`).
+- Journei: deploys through Doppler since Journei PR #49 (2026-10-24), token scoped to `/opt/journei`.
+- Doppler does not allow chained references (a secret that references a secret that references another project). Point each variable straight at `${shared.prd.X}`, or have the workflow read the shared-named variable instead of a copy.
 - News, Bill Splitter: done when they get Clerk (DAN-86, DAN-84).
 
 ## Risk

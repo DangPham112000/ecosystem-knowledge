@@ -22,7 +22,7 @@ Created and set up in [DAN-82](https://linear.app/dangphamworkspace/issue/DAN-82
 | App | Clerk |
 | --- | --- |
 | Event Manager | Its own (old) Clerk app, using only the **Development** instance (`pk_test_`/`sk_test_`) even in production, by choice. Clerk OAuth for MCP. Will move to the shared app (DAN-100). |
-| Journei | Code uses Clerk (merged 2026-10-11), not connected yet. Will be the first app on the shared app (DAN-85). Clerk OAuth for MCP. |
+| Journei | On the shared app since 2026-10-24 (DAN-85), first app to use it. Clerk OAuth for MCP. |
 | Bill Splitter | No sign-in yet. `adminUserId` and `Member.userId` are strings waiting for a clerkId (DAN-84). |
 | News | No Clerk yet. Writes use `nwk_...` API keys for agents/MCP. Clerk token verification is DAN-86. |
 
