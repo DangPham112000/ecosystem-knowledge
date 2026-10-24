@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-24: Shared Clerk app `yolo-ecosystem` is live; only production keys are stored
+
+DAN-82 done. Production instance on `dantepham.site` with the allowed-subdomains list on. Only production keys go into Doppler `shared/prd`, because there is no dev environment. A new app's subdomain must be added to Clerk's allowed subdomains and to `CLERK_AUTHORIZED_PARTIES`. Details in [infra/clerk.md](infra/clerk.md).
+
 ## 2026-10-23: This repo is written in English
 
 Files, commits and PRs in this repo use English; chat with Dang stays in Vietnamese.

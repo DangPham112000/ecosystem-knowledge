@@ -2,15 +2,15 @@
 
 Shared knowledge base for Dang Pham's app ecosystem (Event Manager, Journei, News, Bill Splitter). Every project (Claude project or app repo) reads this repo before starting work and writes back here when a decision affects another app. How to update: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-_Last updated: 2026-10-23._
+_Last updated: 2026-10-24._
 
 ## At a glance
 
 - Apps run on subdomains of `dantepham.site`, on one shared VPS, each with its own Docker Compose + nginx.
-- Goal: **one shared Clerk application** for the whole ecosystem (not created yet, DAN-82), **one thin shared user table** (`core.users`, synced by a Clerk webhook), and **data sharing through APIs**, never by reading another app's database.
+- Goal: **one shared Clerk application** for the whole ecosystem (`yolo-ecosystem`, created in DAN-82), **one thin shared user table** (`core.users`, synced by a Clerk webhook), and **data sharing through APIs**, never by reading another app's database.
 - Secrets live in **Doppler**: a `shared` project plus one project per app, with a single `prd` environment.
 - **No dev or staging environment**: changes are verified directly on production after deploy.
-- Work is tracked in **Linear**, project "Ecosystem: đăng nhập và dữ liệu dùng chung" (DAN-82..DAN-108).
+- Work is tracked in **Linear**, project "Ecosystem: đăng nhập và dữ liệu dùng chung" (DAN-82..DAN-109).
 
 ## Contents
 
