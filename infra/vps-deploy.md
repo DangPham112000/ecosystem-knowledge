@@ -7,7 +7,7 @@
 | App | Directory on the VPS | Notes |
 | --- | --- | --- |
 | Event Manager | `/opt/event-manager` | Reads secrets from Doppler |
-| Journei | `~/journei` | Will move to `/opt/journei` (DAN-107). `~/journei/.env` still holds old Google OAuth/JWT variables the code no longer uses; keep it until the Doppler redeploy |
+| Journei | `/opt/journei` | Reads secrets from Doppler (since 2026-10-24) |
 | News | `/opt/news` | |
 | Bill Splitter | not deployed | No deploy workflow yet |
 
