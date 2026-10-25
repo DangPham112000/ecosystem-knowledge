@@ -9,7 +9,7 @@
 | Event Manager | `/opt/event-manager` | Reads secrets from Doppler |
 | Journei | `/opt/journei` | Reads secrets from Doppler (since 2026-10-24) |
 | News | `/opt/news` | |
-| Bill Splitter | `/opt/bill-splitter` | Reads secrets from Doppler; frontend on host port 8083 (from bill-splitter PR #4) |
+| Bill Splitter | `/opt/bill-splitter` | Reads secrets from Doppler; frontend on host port 8083 (since 2026-10-25) |
 
 - Each app currently runs its own `mongo:7` container; the plan is to consolidate into one instance (DAN-90).
 - Journei: the `Cross-Origin-Opener-Policy: same-origin-allow-popups` header must match in `frontend/vite.config.ts`, `frontend/nginx.conf` and `nginx/nginx.conf`. New backend variables must be added to `environment:` in `docker-compose.yml`.

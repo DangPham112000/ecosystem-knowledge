@@ -31,7 +31,8 @@ _DAN-99 completed on 2026-10-22. Step-by-step guide (Vietnamese): [Hướng dẫ
 - Event Manager: deploys through Doppler (EventManager PR #26), token scoped to `/opt/event-manager`. Since 2026-10-25 (DAN-100, PR #27) `CLERK_SECRET_KEY` and `CLERK_PUBLISHABLE_KEY` reference `${shared.prd.*}`, the frontend build reads `CLERK_PUBLISHABLE_KEY` directly and there is no `VITE_CLERK_PUBLISHABLE_KEY` in Doppler. `CLERK_AUTHORIZED_PARTIES` stays app-local (`https://events.dantepham.site`).
 - Journei: deploys through Doppler since Journei PR #49 (2026-10-24), token scoped to `/opt/journei`.
 - Doppler does not allow chained references (a secret that references a secret that references another project). Point each variable straight at `${shared.prd.X}`, or have the workflow read the shared-named variable instead of a copy.
-- News, Bill Splitter: done when they get Clerk (DAN-86, DAN-84).
+- Bill Splitter: deploys through Doppler since 2026-10-25 (DAN-84), token scoped to `/opt/bill-splitter`.
+- News: done when it gets Clerk (DAN-86, news PR #5).
 
 ## Risk
 
