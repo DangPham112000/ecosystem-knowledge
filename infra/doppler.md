@@ -32,7 +32,7 @@ _DAN-99 completed on 2026-10-22. Step-by-step guide (Vietnamese): [Hướng dẫ
 - Journei: deploys through Doppler since Journei PR #49 (2026-10-24), token scoped to `/opt/journei`.
 - Doppler does not allow chained references (a secret that references a secret that references another project). Point each variable straight at `${shared.prd.X}`, or have the workflow read the shared-named variable instead of a copy.
 - Bill Splitter: deploys through Doppler since 2026-10-25 (DAN-84), token scoped to `/opt/bill-splitter`.
-- News: done when it gets Clerk (DAN-86, news PR #5).
+- News: deploys through Doppler since 2026-10-25 (DAN-86, news PR #5), token scoped to `/opt/news`. Same layout as Event Manager: `CLERK_*` refs, app-local `CLERK_AUTHORIZED_PARTIES`.
 
 ## Risk
 

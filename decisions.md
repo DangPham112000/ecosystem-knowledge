@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-25: News is live with optional sign-in on the shared Clerk app
+
+DAN-86 done (news PRs #5 and #6). Dang chose optional sign-in: the feed stays public, and sign-in only identifies the person (`me { clerkId }`) for future per-person features. No user table. First deploy of News: `news.dantepham.site`, `/opt/news`, host port 8082. Host ports on the VPS: Event Manager 8080, Journei 8081, News 8082, Bill Splitter 8083.
+
 ## 2026-10-25: GitHub keeps only DOPPLER_TOKEN; deploy secrets live in Doppler
 
 GitHub never shows a secret's value again, so Dang could not copy deploy secrets from one repo to another. Every app's workflows now read `VPS_HOST`, `VPS_USERNAME` and `VPS_SSH_KEY` from Doppler (one copy in `shared/prd`, referenced by each app's `prd`), masked in the logs. GHCR push and the VPS pull use the job's own `GITHUB_TOKEN`, so the `GH_PAT` / `GHCR_PAT` personal access tokens go away. A new deploy SSH key replaces the old ones. PRs: EventManager #28, Journei #50, news #5, bill-splitter #4.

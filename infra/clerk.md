@@ -25,7 +25,7 @@ Created and set up in [DAN-82](https://linear.app/dangphamworkspace/issue/DAN-82
 | Event Manager | On the shared app since 2026-10-25 (DAN-100, EventManager PR #27). Existing users were relinked by email on first sign-in. Clerk OAuth for MCP; connectors had to reconnect. The old Clerk app is no longer used and can be deleted. |
 | Journei | On the shared app since 2026-10-24 (DAN-85), first app to use it. Clerk OAuth for MCP. |
 | Bill Splitter | On the shared app since 2026-10-25 (DAN-84, bill-splitter PR #4), optional sign-in. Anonymous members still allowed; `clerkId` in the GraphQL context. |
-| News | No Clerk yet. Writes use `nwk_...` API keys for agents/MCP. Clerk token verification is DAN-86. |
+| News | On the shared app since 2026-10-25 (DAN-86, news PR #5). Optional sign-in, feed public, no user table (`me { clerkId }`). Agents/MCP still use `nwk_...` API keys. |
 
 ## Common environment variables
 
