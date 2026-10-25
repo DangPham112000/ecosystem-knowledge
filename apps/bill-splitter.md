@@ -6,3 +6,4 @@
 - Sign-in: optional, with the shared Clerk app (live since 2026-10-25, DAN-84). The backend puts the Clerk user id in the GraphQL context as `clerkId` (null for anonymous members); no User table. `Splitter.adminUserId` and `Member.userId` hold Clerk user ids, assigned once the create and join APIs exist (DAN-35, DAN-41). `CLERK_AUTHORIZED_PARTIES` is only `https://bills.dantepham.site`.
 - Secrets: Doppler `bill-splitter/prd` references `${shared.prd.CLERK_*}` and `${shared.prd.VPS_*}`; GitHub keeps only `DOPPLER_TOKEN`.
 - Target of the data-sharing flows Journei → Bill Splitter and Event Manager → Bill Splitter.
+- MongoDB: database `bill-splitter` on the shared `ecosystem-mongo` (user `bill-splitter`, DAN-90, bill-splitter #5), started empty. See [infra/mongo.md](../infra/mongo.md).

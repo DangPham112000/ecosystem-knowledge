@@ -22,6 +22,7 @@ _Last updated: 2026-10-25._
 | [infra/clerk.md](infra/clerk.md) | Clerk: current state and plan |
 | [infra/doppler.md](infra/doppler.md) | Doppler: project layout, tokens, deploy |
 | [infra/vps-deploy.md](infra/vps-deploy.md) | VPS, deploy directories, GitHub Actions |
+| [infra/mongo.md](infra/mongo.md) | Shared MongoDB: users, databases, network |
 | [linear.md](linear.md) | Linear project, milestones, key issues |
 | [apps/event-manager.md](apps/event-manager.md) | Event Manager |
 | [apps/journei.md](apps/journei.md) | Journei (Journey Planner) |
@@ -36,3 +37,4 @@ _Last updated: 2026-10-25._
 | Journei | [DangPham112000/Journei](https://github.com/DangPham112000/Journei) | from the `DOMAIN` variable in Doppler |
 | News | [DangPham112000/news](https://github.com/DangPham112000/news) | `news.dantepham.site` |
 | Bill Splitter | [DangPham112000/bill-splitter](https://github.com/DangPham112000/bill-splitter) | `bills.dantepham.site` |
+| Shared infra (MongoDB) | [DangPham112000/ecosystem-infra](https://github.com/DangPham112000/ecosystem-infra) (private) | none |

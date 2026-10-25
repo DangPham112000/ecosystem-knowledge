@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-25: One shared MongoDB instance, one database per app
+
+DAN-90. Dang asked whether to normalize everything into a single database; the answer was no. One instance (`ecosystem-mongo`, repo `ecosystem-infra`, `/opt/ecosystem-mongo`) with authentication, but each app keeps its own database and its own Mongo user that can only write that database (plus read `core`). Reasons: a bug in one app cannot touch another app's data, schemas change independently, and backups and removals stay per app. Only user identity is shared (`core.users`, DAN-91); everything else still goes through APIs. Infrastructure code lives in the new private repo `ecosystem-infra`, not in this public repo. Only Event Manager's data was migrated. Details in [infra/mongo.md](infra/mongo.md).
+
 ## 2026-10-25: News is live with optional sign-in on the shared Clerk app
 
 DAN-86 done (news PRs #5 and #6). Dang chose optional sign-in: the feed stays public, and sign-in only identifies the person (`me { clerkId }`) for future per-person features. No user table. First deploy of News: `news.dantepham.site`, `/opt/news`, host port 8082. Host ports on the VPS: Event Manager 8080, Journei 8081, News 8082, Bill Splitter 8083.

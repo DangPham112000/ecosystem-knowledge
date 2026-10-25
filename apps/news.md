@@ -6,3 +6,4 @@
 - Sign-in: shared Clerk app, **optional** (DAN-86, news PR #5, 2026-10-25). The feed stays public. The backend verifies the session token and exposes `me { clerkId }`; there is no user table, per-person data will store `clerkId`.
 - Secrets: Doppler `news/prd`: `CLERK_SECRET_KEY`, `CLERK_PUBLISHABLE_KEY` (refs to `shared`), `CLERK_AUTHORIZED_PARTIES=https://news.dantepham.site`, `VPS_*` (refs to `shared`). GitHub keeps only `DOPPLER_TOKEN`.
 - Next: DAN-108 (remove mock mode).
+- MongoDB: database `news` on the shared `ecosystem-mongo` (user `news`, DAN-90, news #7), started empty, so API keys were created again. See [infra/mongo.md](../infra/mongo.md).
