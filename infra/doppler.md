@@ -6,10 +6,10 @@ _DAN-99 completed on 2026-10-22. Step-by-step guide (Vietnamese): [Hướng dẫ
 
 | Project | Config | Contents |
 | --- | --- | --- |
-| `shared` | `prd` | `CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `CLERK_AUTHORIZED_PARTIES` (production keys, added 2026-10-24 in DAN-82); apps reference them |
+| `shared` | `prd` | `CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `CLERK_AUTHORIZED_PARTIES` (production keys, added 2026-10-24 in DAN-82); `VPS_HOST`, `VPS_USERNAME`, `VPS_SSH_KEY` (deploy SSH settings, 2026-10-25); apps reference them |
 | `event-manager` | `prd` | App secrets + references to `shared` |
 | `journei` | `prd` | App secrets + references to `shared` |
-| `bill-splitter` | `prd` | App secrets (no production secrets yet) |
+| `bill-splitter` | `prd` | App secrets + references to `shared` |
 | `news` | `prd` | App secrets |
 
 - Each project has **only the `prd` environment** (`dev` and `stg` were deleted on 2026-10-22).
@@ -23,7 +23,7 @@ _DAN-99 completed on 2026-10-22. Step-by-step guide (Vietnamese): [Hướng dẫ
   - `github-actions-<app>`: stored as the GitHub secret `DOPPLER_TOKEN`, used to fetch `VITE_*` keys when building the frontend.
 - Deploy on the VPS: `doppler run -- docker compose up -d --remove-orphans`. `docker-compose.yml` needs no changes.
 - Changing a secret: re-run the deploy workflow. Changing the publishable key: the frontend must be rebuilt.
-- Deploy secrets (`VPS_HOST`, `VPS_SSH_KEY`, `GH_PAT`, `GHCR_PAT`) stay in GitHub Secrets.
+- **GitHub keeps only `DOPPLER_TOKEN`** (since 2026-10-25). Each app's `prd` has `VPS_HOST`, `VPS_USERNAME`, `VPS_SSH_KEY` = `${shared.prd.*}`; the deploy job reads them with the CLI and masks every line. GHCR push and the VPS `docker login` use the job's `GITHUB_TOKEN` (no PAT). If GHCR answers 403, give the repo Write under the package's Manage Actions access.
 - In production `MONGODB_URI` is an internal Docker hostname, not a secret, so it stays in `docker-compose.yml` until DAN-90.
 
 ## Status per app

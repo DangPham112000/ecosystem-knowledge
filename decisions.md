@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-25: GitHub keeps only DOPPLER_TOKEN; deploy secrets live in Doppler
+
+GitHub never shows a secret's value again, so Dang could not copy deploy secrets from one repo to another. Every app's workflows now read `VPS_HOST`, `VPS_USERNAME` and `VPS_SSH_KEY` from Doppler (one copy in `shared/prd`, referenced by each app's `prd`), masked in the logs. GHCR push and the VPS pull use the job's own `GITHUB_TOKEN`, so the `GH_PAT` / `GHCR_PAT` personal access tokens go away. A new deploy SSH key replaces the old ones. PRs: EventManager #28, Journei #50, news #5, bill-splitter #4.
+
 ## 2026-10-25: Event Manager is on the shared Clerk app
 
 DAN-100 done (EventManager PR #27). Existing users were relinked by email on their first sign-in, so no user import was needed. Doppler `event-manager/prd` references `${shared.prd.CLERK_*}` and keeps its own `CLERK_AUTHORIZED_PARTIES`, so session tokens from other apps are refused. MCP OAuth needs CIMD and DCR turned on in Clerk (see [infra/clerk.md](infra/clerk.md)); OAuth connectors had to reconnect, API keys kept working. Both apps with users (Event Manager, Journei) now share one Clerk app and one session.
