@@ -20,7 +20,7 @@ When ecosystem work starts or finishes, update the matching DAN issue instead of
 | DAN-83 | News: lock the write API (Urgent) | Done (API keys for `upsertArticles` and MCP) |
 | DAN-84 | Bill Splitter adds Clerk | |
 | DAN-85 | Journei moves to Clerk (sub-issues DAN-87/88/89) | Done (2026-10-24); DAN-87/88 Done, DAN-89 Canceled (no real users) |
-| DAN-86 | News verifies Clerk tokens | |
+| DAN-86 | News verifies Clerk tokens | Done (2026-10-25, news PRs #5, #6; optional sign-in) |
 | DAN-90 | Consolidate MongoDB into one instance | |
 | DAN-91 | `core.users` + Clerk webhook endpoint | |
 | DAN-92 | Event Manager reads `core.users` | |

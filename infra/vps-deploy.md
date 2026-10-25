@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | Event Manager | `/opt/event-manager` | Reads secrets from Doppler |
 | Journei | `/opt/journei` | Reads secrets from Doppler (since 2026-10-24) |
-| News | `/opt/news` | |
+| News | `/opt/news` | Reads secrets from Doppler; frontend on host port 8082 (since 2026-10-25) |
 | Bill Splitter | `/opt/bill-splitter` | Reads secrets from Doppler; frontend on host port 8083 (since 2026-10-25) |
 
 - Each app currently runs its own `mongo:7` container; the plan is to consolidate into one instance (DAN-90).
