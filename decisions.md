@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-25: Event Manager has no user table; it reads `core.users`
+
+DAN-92 (EventManager PRs #30, #31). Users are referenced by `clerkId` everywhere in Event Manager's database; identity comes from `core.users`, read-only. App-specific per-user data stays in the app's own database keyed by `clerkId` (Event Manager: `usersettings`). If `core.users` does not have a user yet (webhook delay on first sign-up), the app asks the Clerk API instead and never writes `core`. This is the pattern for Journei and Bill Splitter (DAN-93).
+
 ## 2026-10-25: `core.users` is written only by a small core-users service
 
 DAN-91 (ecosystem-infra PR #2). Dang chose a dedicated service over putting the webhook in Event Manager's backend, so no app needs write access to `core` and user sync does not depend on any one app being up. The service lives in `ecosystem-infra` (`core/`), receives Clerk webhooks at `https://core.dantepham.site/webhooks/clerk`, and is the only Mongo user (`core`) that can write the `core` database. A full sync from the Clerk API runs on every deploy, which is both the backfill and the fix for missed webhooks. Apps read `core.users` by `clerkId` (DAN-92, DAN-93). Details in [infra/core-users.md](infra/core-users.md).
