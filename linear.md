@@ -23,7 +23,7 @@ When ecosystem work starts or finishes, update the matching DAN issue instead of
 | DAN-86 | News verifies Clerk tokens | Done (2026-10-25, news PRs #5, #6; optional sign-in) |
 | DAN-90 | Consolidate MongoDB into one instance | Done (2026-10-25, ecosystem-infra #1, bill-splitter #5, news #7, Journei #51, EventManager #29) |
 | DAN-91 | `core.users` + Clerk webhook endpoint | Done (2026-10-25, ecosystem-infra #2, #3; core-users service) |
-| DAN-92 | Event Manager reads `core.users` | |
+| DAN-92 | Event Manager reads `core.users` | Done (2026-10-25, EventManager #30, #31; no own user table) |
 | DAN-93 | Journei and Bill Splitter use `core.users` | |
 | DAN-94..98 | Data-sharing flows | |
 | DAN-107 | Move Journei's deploy directory to `/opt/journei` (before Journei's Doppler step) | Done |
