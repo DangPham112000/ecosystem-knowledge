@@ -35,4 +35,4 @@ _Last updated: 2026-10-25._
 | Event Manager | [DangPham112000/EventManager](https://github.com/DangPham112000/EventManager) | `events.dantepham.site` |
 | Journei | [DangPham112000/Journei](https://github.com/DangPham112000/Journei) | from the `DOMAIN` variable in Doppler |
 | News | [DangPham112000/news](https://github.com/DangPham112000/news) | not recorded yet |
-| Bill Splitter | [DangPham112000/bill-splitter](https://github.com/DangPham112000/bill-splitter) | not deployed yet |
+| Bill Splitter | [DangPham112000/bill-splitter](https://github.com/DangPham112000/bill-splitter) | `bills.dantepham.site` (from PR #4) |
