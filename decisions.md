@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-25: Event Manager is on the shared Clerk app
+
+DAN-100 done (EventManager PR #27). Existing users were relinked by email on their first sign-in, so no user import was needed. Doppler `event-manager/prd` references `${shared.prd.CLERK_*}` and keeps its own `CLERK_AUTHORIZED_PARTIES`, so session tokens from other apps are refused. MCP OAuth needs CIMD and DCR turned on in Clerk (see [infra/clerk.md](infra/clerk.md)); OAuth connectors had to reconnect, API keys kept working. Both apps with users (Event Manager, Journei) now share one Clerk app and one session.
+
 ## 2026-10-24: Shared Clerk app `yolo-ecosystem` is live; only production keys are stored
 
 DAN-82 done. Production instance on `dantepham.site` with the allowed-subdomains list on. Only production keys go into Doppler `shared/prd`, because there is no dev environment. A new app's subdomain must be added to Clerk's allowed subdomains and to `CLERK_AUTHORIZED_PARTIES`. Details in [infra/clerk.md](infra/clerk.md).

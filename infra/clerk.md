@@ -1,6 +1,6 @@
 # Clerk
 
-_Updated 2026-10-24._
+_Updated 2026-10-25._
 
 ## Shared Clerk application
 
@@ -12,6 +12,7 @@ Created and set up in [DAN-82](https://linear.app/dangphamworkspace/issue/DAN-82
 - Google sign-in uses custom OAuth credentials from the Google Cloud project `yolo-ecosystem` (External, published; only email/profile scopes, so no Google review). Its consent screen points to `https://events.dantepham.site` and `https://events.dantepham.site/privacy` (the page is DAN-109).
 - **Allowed subdomains** (Clerk → Domains) is on: `events`, `journei`, `bills`, `news`, `accounts` under `dantepham.site`.
 - Keys: only the production keys are stored, in Doppler `shared/prd` (`CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `CLERK_AUTHORIZED_PARTIES`). Apps reference them as `${shared.prd.CLERK_SECRET_KEY}` etc. Development keys are not stored, since there is no dev environment.
+- OAuth applications → Settings (for MCP sign-in, enabled 2026-10-25): **Publish CIMD support** on with client admission "Any compatible CIMD client", **Publish DCR support** on (Clerk marks it deprecated, still needed for older clients), allowed and default scopes `email`, `profile`, `offline_access`.
 - Webhooks (`user.created/updated/deleted`) are added in DAN-91.
 - Hobby limits (checked 2026-10-24): 50,000 monthly retained users per app, shared by the whole ecosystem; up to 3 social providers.
 
@@ -21,7 +22,7 @@ Created and set up in [DAN-82](https://linear.app/dangphamworkspace/issue/DAN-82
 
 | App | Clerk |
 | --- | --- |
-| Event Manager | Its own (old) Clerk app, using only the **Development** instance (`pk_test_`/`sk_test_`) even in production, by choice. Clerk OAuth for MCP. Will move to the shared app (DAN-100). |
+| Event Manager | On the shared app since 2026-10-25 (DAN-100, EventManager PR #27). Existing users were relinked by email on first sign-in. Clerk OAuth for MCP; connectors had to reconnect. The old Clerk app is no longer used and can be deleted. |
 | Journei | On the shared app since 2026-10-24 (DAN-85), first app to use it. Clerk OAuth for MCP. |
 | Bill Splitter | No sign-in yet. `adminUserId` and `Member.userId` are strings waiting for a clerkId (DAN-84). |
 | News | No Clerk yet. Writes use `nwk_...` API keys for agents/MCP. Clerk token verification is DAN-86. |

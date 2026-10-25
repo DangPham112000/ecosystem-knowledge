@@ -12,11 +12,11 @@ When ecosystem work starts or finishes, update the matching DAN issue instead of
 
 ## Key issues
 
-| Issue | Content | Status (2026-10-24) |
+| Issue | Content | Status (2026-10-25) |
 | --- | --- | --- |
 | DAN-99 | Doppler for secrets (blocks DAN-82) | Done |
 | DAN-82 | Create the new ecosystem Clerk app, with a setup guide | Done |
-| DAN-100 | Event Manager moves to the new Clerk app | |
+| DAN-100 | Event Manager moves to the new Clerk app | Done (2026-10-25, EventManager PR #27) |
 | DAN-83 | News: lock the write API (Urgent) | Done (API keys for `upsertArticles` and MCP) |
 | DAN-84 | Bill Splitter adds Clerk | |
 | DAN-85 | Journei moves to Clerk (sub-issues DAN-87/88/89) | Done (2026-10-24); DAN-87/88 Done, DAN-89 Canceled (no real users) |

@@ -2,7 +2,7 @@
 
 Shared knowledge base for Dang Pham's app ecosystem (Event Manager, Journei, News, Bill Splitter). Every project (Claude project or app repo) reads this repo before starting work and writes back here when a decision affects another app. How to update: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-_Last updated: 2026-10-24._
+_Last updated: 2026-10-25._
 
 ## At a glance
 
