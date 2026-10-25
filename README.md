@@ -23,6 +23,7 @@ _Last updated: 2026-10-25._
 | [infra/doppler.md](infra/doppler.md) | Doppler: project layout, tokens, deploy |
 | [infra/vps-deploy.md](infra/vps-deploy.md) | VPS, deploy directories, GitHub Actions |
 | [infra/mongo.md](infra/mongo.md) | Shared MongoDB: users, databases, network |
+| [infra/core-users.md](infra/core-users.md) | `core.users` and the Clerk webhook service |
 | [linear.md](linear.md) | Linear project, milestones, key issues |
 | [apps/event-manager.md](apps/event-manager.md) | Event Manager |
 | [apps/journei.md](apps/journei.md) | Journei (Journey Planner) |

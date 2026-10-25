@@ -22,7 +22,7 @@ When ecosystem work starts or finishes, update the matching DAN issue instead of
 | DAN-85 | Journei moves to Clerk (sub-issues DAN-87/88/89) | Done (2026-10-24); DAN-87/88 Done, DAN-89 Canceled (no real users) |
 | DAN-86 | News verifies Clerk tokens | Done (2026-10-25, news PRs #5, #6; optional sign-in) |
 | DAN-90 | Consolidate MongoDB into one instance | In progress (2026-10-25, ecosystem-infra #1, bill-splitter #5, news #7, Journei #51, EventManager #29) |
-| DAN-91 | `core.users` + Clerk webhook endpoint | |
+| DAN-91 | `core.users` + Clerk webhook endpoint | In progress: core-users service, ecosystem-infra PR #2 |
 | DAN-92 | Event Manager reads `core.users` | |
 | DAN-93 | Journei and Bill Splitter use `core.users` | |
 | DAN-94..98 | Data-sharing flows | |

@@ -10,11 +10,12 @@ One `mongo:7` container, `ecosystem-mongo`, with authentication on, deployed to 
 | Journei | `journei` | `journey-planner` | `MONGO_PASSWORD_JOURNEI` |
 | News | `news` | `news` | `MONGO_PASSWORD_NEWS` |
 | Bill Splitter | `bill-splitter` | `bill-splitter` | `MONGO_PASSWORD_BILL_SPLITTER` |
+| core-users service | `core` | `core` (only writer) | `MONGO_PASSWORD_CORE` |
 
-- Every app user has `readWrite` on its own database and `read` on `core` (for `core.users`, DAN-91). Writing to another app's database is refused.
+- Every app user has `readWrite` on its own database and `read` on `core` (for `core.users`, DAN-91, see [core-users.md](core-users.md)). Writing to another app's database, or to `core`, is refused.
 - The stack creates the Docker network `ecosystem`. App backends join it as an external network and connect with `mongodb://<user>:${MONGO_PASSWORD}@ecosystem-mongo:27017/<database>?authSource=admin`. No port is published on the host.
 - Each app's Doppler `prd` has `MONGO_PASSWORD = ${shared.prd.MONGO_PASSWORD_<APP>}`. App deploys stop before changing anything if the `ecosystem` network or `MONGO_PASSWORD` is missing, so **deploy the Mongo stack first**.
-- Deploy: pushing `mongo/**` to `main` of `ecosystem-infra` (or running "Deploy shared MongoDB" by hand). The workflow runs `doppler run -- docker compose up -d --wait`, then `ensure-users.js`, which creates missing users and resets passwords and roles. Doppler project `ecosystem-infra/prd` only references `shared/prd` (`MONGO_*`, `VPS_*`).
+- Deploy: pushing `mongo/**` or `core/**` to `main` of `ecosystem-infra` (or running "Deploy shared infra" by hand). The workflow runs `doppler run -- docker compose up -d --wait`, then `ensure-users.js`, which creates missing users and resets passwords and roles. Doppler project `ecosystem-infra/prd` only references `shared/prd` (`MONGO_*`, `VPS_*`).
 - Changing an app password: change it in `shared/prd`, redeploy the Mongo stack, then redeploy the app. `MONGO_ROOT_PASSWORD` is only read on the first start; changing it later also needs `db.changeUserPassword` inside Mongo.
 - WiredTiger cache capped at 0.5 GB.
 - A new app: add a row to `ensure-users.js`, a `MONGO_PASSWORD_<APP>` in `shared/prd` and in `ecosystem-infra/prd`, then `MONGO_PASSWORD` in the app's project.

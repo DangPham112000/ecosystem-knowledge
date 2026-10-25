@@ -27,7 +27,7 @@ events.*      journei         bills          news
 
 ## Shared users
 
-- A `core.users` collection (email, name, avatar, clerkId), updated by the `user.created / user.updated / user.deleted` webhooks.
+- A `core.users` collection (email, name, avatar, clerkId), updated by the `user.created / user.updated / user.deleted` webhooks through the core-users service, its only writer (DAN-91, [infra/core-users.md](infra/core-users.md)).
 - Each app's business data references users by `clerkId`.
 - Requires consolidating MongoDB into one instance (each app keeps its own database); this also saves RAM on the VPS.
 

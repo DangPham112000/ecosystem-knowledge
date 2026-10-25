@@ -13,10 +13,10 @@ Created and set up in [DAN-82](https://linear.app/dangphamworkspace/issue/DAN-82
 - **Allowed subdomains** (Clerk → Domains) is on: `events`, `journei`, `bills`, `news`, `accounts` under `dantepham.site`.
 - Keys: only the production keys are stored, in Doppler `shared/prd` (`CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `CLERK_AUTHORIZED_PARTIES`). Apps reference them as `${shared.prd.CLERK_SECRET_KEY}` etc. Development keys are not stored, since there is no dev environment.
 - OAuth applications → Settings (for MCP sign-in, enabled 2026-10-25): **Publish CIMD support** on with client admission "Any compatible CIMD client", **Publish DCR support** on (Clerk marks it deprecated, still needed for older clients), allowed and default scopes `email`, `profile`, `offline_access`.
-- Webhooks (`user.created/updated/deleted`) are added in DAN-91.
+- Webhooks: one endpoint, `https://core.dantepham.site/webhooks/clerk`, events `user.created/updated/deleted`, feeding `core.users` (DAN-91, see [core-users.md](core-users.md)). Its signing secret is `CLERK_WEBHOOK_SIGNING_SECRET` in Doppler `ecosystem-infra/prd`.
 - Hobby limits (checked 2026-10-24): 50,000 monthly retained users per app, shared by the whole ecosystem; up to 3 social providers.
 
-**Adding a new app or subdomain:** add it to Allowed subdomains in Clerk **and** to `CLERK_AUTHORIZED_PARTIES` in Doppler `shared/prd`, then redeploy the apps.
+**Adding a new app or subdomain:** add it to Allowed subdomains (the `core` webhook subdomain is not a sign-in origin and needs neither) in Clerk **and** to `CLERK_AUTHORIZED_PARTIES` in Doppler `shared/prd`, then redeploy the apps.
 
 ## Current state per app
 

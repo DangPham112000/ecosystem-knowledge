@@ -11,6 +11,7 @@
 | News | `/opt/news` | Reads secrets from Doppler; frontend on host port 8082 (since 2026-10-25) |
 | Bill Splitter | `/opt/bill-splitter` | Reads secrets from Doppler; frontend on host port 8083 (since 2026-10-25) |
 | Shared MongoDB | `/opt/ecosystem-mongo` | Repo `ecosystem-infra`; Doppler `ecosystem-infra/prd` (since 2026-10-25) |
+| core-users | `/opt/core-users` | Repo `ecosystem-infra`; `core.dantepham.site`, host port 8084 (DAN-91) |
 
 - MongoDB: one shared instance, `ecosystem-mongo` in `/opt/ecosystem-mongo` (repo `ecosystem-infra`, DAN-90). App stacks join its `ecosystem` network, so it must be deployed before them. See [mongo.md](mongo.md).
 - Journei: the `Cross-Origin-Opener-Policy: same-origin-allow-popups` header must match in `frontend/vite.config.ts`, `frontend/nginx.conf` and `nginx/nginx.conf`. New backend variables must be added to `environment:` in `docker-compose.yml`.
