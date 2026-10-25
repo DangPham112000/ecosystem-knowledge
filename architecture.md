@@ -10,7 +10,7 @@ events.*      journei         bills          news
    │              │              │              │
    └──── verify the token with the same CLERK_SECRET_KEY ┘
                          │
-          Shared MongoDB (one instance, after DAN-90)
+          Shared MongoDB (ecosystem-mongo, DAN-90)
           ├─ core.users      ← synced from the Clerk webhook (DAN-91)
           ├─ event-manager
           ├─ journey-planner

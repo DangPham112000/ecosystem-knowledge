@@ -6,3 +6,4 @@
 - Has `find_conflicts` (overlap check), useful for the Journei ↔ Event Manager flow.
 - Secrets: Doppler project `event-manager`, deployed through Doppler since PR #26 (2026-10-23). VPS directory `/opt/event-manager`.
 - Next: read `core.users` (DAN-92), remove mock mode (DAN-108), `/privacy` page (DAN-109).
+- MongoDB: database `event-manager` on the shared `ecosystem-mongo` (user `event-manager`, DAN-90, EventManager #29); data moved by `scripts/migrate-to-shared-mongo.sh`. See [infra/mongo.md](../infra/mongo.md).
