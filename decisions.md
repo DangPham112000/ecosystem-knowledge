@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-25: `core.users` is written only by a small core-users service
+
+DAN-91 (ecosystem-infra PR #2). Dang chose a dedicated service over putting the webhook in Event Manager's backend, so no app needs write access to `core` and user sync does not depend on any one app being up. The service lives in `ecosystem-infra` (`core/`), receives Clerk webhooks at `https://core.dantepham.site/webhooks/clerk`, and is the only Mongo user (`core`) that can write the `core` database. A full sync from the Clerk API runs on every deploy, which is both the backfill and the fix for missed webhooks. Apps read `core.users` by `clerkId` (DAN-92, DAN-93). Details in [infra/core-users.md](infra/core-users.md).
+
 ## 2026-10-25: One shared MongoDB instance, one database per app
 
 DAN-90. Dang asked whether to normalize everything into a single database; the answer was no. One instance (`ecosystem-mongo`, repo `ecosystem-infra`, `/opt/ecosystem-mongo`) with authentication, but each app keeps its own database and its own Mongo user that can only write that database (plus read `core`). Reasons: a bug in one app cannot touch another app's data, schemas change independently, and backups and removals stay per app. Only user identity is shared (`core.users`, DAN-91); everything else still goes through APIs. Infrastructure code lives in the new private repo `ecosystem-infra`, not in this public repo. Only Event Manager's data was migrated. Details in [infra/mongo.md](infra/mongo.md).
