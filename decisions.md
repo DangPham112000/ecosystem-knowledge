@@ -2,6 +2,17 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-26: Apps call each other server to server with the user's session token
+
+DAN-95 (EventManager #32, Journei #54), the first data-sharing flow. Journei's backend calls Event Manager's GraphQL with the user's own Clerk session token, forwarded from the browser request, so Event Manager does its own ownership checks and no service account or shared secret exists. Rules for every cross-app call:
+
+- The caller's origin is added to the callee's `CLERK_AUTHORIZED_PARTIES` in Doppler (a session token's `azp` is the app that issued it). Event Manager now accepts `https://events.dantepham.site,https://journei.dantepham.site`.
+- Calls stay on the shared `ecosystem` Docker network: the callee's backend gets a network alias `<app>-backend` (Event Manager: `event-manager-backend:4000`), because every stack has a service named `backend`.
+- The caller stores only an `{ app, id }` reference (Journei: `ScheduledActivity.calendarEvent`), and a failed call never fails the caller's own change; the user can retry ("Sync now").
+- MCP requests carry Clerk OAuth access tokens, which the other apps' GraphQL does not accept, so agent-made changes are synced later from the browser.
+
+DAN-94 (Journei → Bill Splitter) waits for Bill Splitter's own create-splitter feature (DAN-35); it will follow the same rules.
+
 ## 2026-10-26: Every app reads users from `core.users`; no app has its own user table
 
 DAN-93 (Journei #53, bill-splitter #6). Journei dropped its `users` collection: plans reference their owner by `clerkId`, moved on startup by email match in `core.users`, with a one-time dump in `backups/pre-dan-93.archive`. Bill Splitter never had a user table and now reads email, name and avatar from `core.users` too. Both use the same Clerk API fallback as Event Manager. Looking people up by email in `core.users` (for invites) exists only as an internal helper in each app: it is not exposed through any API until an invite feature needs it, because an open email lookup lets anyone probe who has an account.

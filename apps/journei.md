@@ -7,5 +7,6 @@
 - Users (DAN-93, Journei #53, 2026-10-26): **no own user table**. Email, name and avatar come from `core.users` (Clerk API fallback); GraphQL `User.id` is the Clerk id and has `avatar` (was `picture`). The old `users` collection was dropped on startup once every plan pointed at a Clerk id; a dump from before is in `backups/pre-dan-93.archive` in the deploy directory.
 - Deploy: VPS directory `/opt/journei` (DAN-107), compose project name pinned to `journei`. No `.env` on the VPS.
 - Doppler: project `journei/prd` holds `CLERK_SECRET_KEY` and `CLERK_PUBLISHABLE_KEY` (both `${shared.prd.*}`), `VITE_GOOGLE_MAPS_API_KEY`, `DOMAIN`. The frontend build reads `CLERK_PUBLISHABLE_KEY` and passes it as `VITE_CLERK_PUBLISHABLE_KEY` (Journei PR #49).
-- Next: DAN-94, DAN-95, DAN-108.
+- Calendar sync (DAN-95, Journei #54, 2026-10-26): a plan with `calendarSync` on copies each scheduled activity to the owner's Event Manager calendar and warns about overlaps. Calls Event Manager server to server with the user's session token; stores `calendarEvent: { app, id }` on the activity. Activities added through MCP sync when the user presses "Sync now".
+- Next: DAN-94 (after Bill Splitter DAN-35), DAN-108.
 - MongoDB: database `journey-planner` on the shared `ecosystem-mongo` (user `journei`, DAN-90, Journei #51), started empty. `clear-mongodb.yml` drops its collections there. See [infra/mongo.md](../infra/mongo.md).

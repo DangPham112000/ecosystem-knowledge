@@ -33,10 +33,10 @@ events.*      journei         bills          news
 
 ## Data sharing
 
-App A calls app B's GraphQL API with the user's own Clerk token. Proposed flows (DAN-94..98):
+App A's backend calls app B's GraphQL API with the user's own Clerk session token, over the `ecosystem` network; A's origin must be in B's `CLERK_AUTHORIZED_PARTIES` (see decisions.md, 2026-10-26). Flows (DAN-94..98):
 
-- Journei → Bill Splitter: create a splitter for a trip with the travellers already invited.
-- Journei ↔ Event Manager: itinerary activities appear as calendar events, with overlap checks (`find_conflicts`).
+- Journei → Bill Splitter: create a splitter for a trip with the travellers already invited (DAN-94, waits for Bill Splitter's DAN-35).
+- Journei ↔ Event Manager: itinerary activities appear as calendar events, with overlap checks (DAN-95, built 2026-10-26).
 - Event Manager → Bill Splitter: a shared fund for an event.
 - A shared "people I often go with" contact list.
 - News → Journei / Event Manager: news about a trip's destination or an event's topic.
