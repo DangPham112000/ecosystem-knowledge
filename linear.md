@@ -26,7 +26,7 @@ When ecosystem work starts or finishes, update the matching DAN issue instead of
 | DAN-92 | Event Manager reads `core.users` | Done (2026-10-25, EventManager #30, #31; no own user table) |
 | DAN-93 | Journei and Bill Splitter use `core.users` | Done (2026-10-26, Journei #53, bill-splitter #6; no app has its own user table) |
 | DAN-94..98 | Data-sharing flows | |
-| DAN-96 | Event Manager → Bill Splitter: splitter for an event | In progress (2026-10-26): Bill Splitter side in bill-splitter #8; Event Manager link still to do |
+| DAN-96 | Event Manager → Bill Splitter: splitter for an event | In review (2026-10-26): bill-splitter #8, EventManager #33 |
 | DAN-107 | Move Journei's deploy directory to `/opt/journei` (before Journei's Doppler step) | Done |
 | DAN-108 | Remove mock mode (Event Manager, Journei, News) | |
 | DAN-109 | Event Manager: public `/privacy` page (used by the Google OAuth consent screen) | |
