@@ -26,6 +26,7 @@ Clerk ──webhook──▶ core.dantepham.site/webhooks/clerk ─▶ core-user
 - Only core-users writes `core` (Mongo user `core`). Every app user has `read` on `core`; reads go through the app's own Mongo connection (`client.db('core').collection('users')`).
 - Webhook events: `user.created`, `user.updated`, `user.deleted`, verified with the Svix signature. Late (older) updates are ignored.
 - A full sync from the Clerk API runs on every deploy of `ecosystem-infra` (backfill, and repair after missed webhooks). To force one, rerun the "Deploy shared infra" workflow.
+- Readers (2026-10-26): Event Manager (DAN-92), Journei and Bill Splitter (DAN-93). No app has its own user table any more. Lookup by email is internal only in each app, not exposed by any API.
 - Only identity lives here. Anything app-specific (preferences, roles) stays in the app's own database, keyed by `clerkId`.
 
 ## Deploy
