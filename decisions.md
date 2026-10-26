@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-26: Bill Splitter creates splitters from Event Manager events; attendees become linked members
+
+DAN-96 (bill-splitter #8, EventManager #33), the second data-sharing flow. Two entry points: Bill Splitter's create form lists the user's Event Manager events and copies one's title, description, dates and attendees; and Event Manager's "Split costs" button (Dang's ask: it creates the splitter right away if there is none) links to `https://bills.dantepham.site/events/<id>`, where Bill Splitter's `splitterForEvent` opens the event's splitter or creates it with everyone who JOINED as linked members. **One splitter per event** (unique index on `linkedEvent`); an attendee who is not in an existing splitter is told to ask its admin. It follows the cross-app rules below: Bill Splitter's backend reads Event Manager's existing `getEvents` / `getEvent` with the user's session token (no Event Manager change), stores only `Splitter.linkedEvent { app: "event-manager", id }`, and does not keep the copy in sync. Attendees the admin keeps become members with `Member.userId` = their Clerk id, so the splitter is in their list when they sign in; Bill Splitter re-reads the event and refuses any Clerk id that is not an attendee, so a client cannot push a splitter into a stranger's list. Event Manager stores nothing (DAN-96's "store the link on the event" item was dropped): the reference lives only on the splitter, so Event Manager needs no write API from another app and its button is a plain link.
+
 ## 2026-10-26: Apps call each other server to server with the user's session token
 
 DAN-95 (EventManager #32, Journei #54), the first data-sharing flow. Journei's backend calls Event Manager's GraphQL with the user's own Clerk session token, forwarded from the browser request, so Event Manager does its own ownership checks and no service account or shared secret exists. Rules for every cross-app call:
