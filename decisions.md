@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-26: Every app reads users from `core.users`; no app has its own user table
+
+DAN-93 (Journei #53, bill-splitter #6). Journei dropped its `users` collection: plans reference their owner by `clerkId`, moved on startup by email match in `core.users`, with a one-time dump in `backups/pre-dan-93.archive`. Bill Splitter never had a user table and now reads email, name and avatar from `core.users` too. Both use the same Clerk API fallback as Event Manager. Looking people up by email in `core.users` (for invites) exists only as an internal helper in each app: it is not exposed through any API until an invite feature needs it, because an open email lookup lets anyone probe who has an account.
+
 ## 2026-10-25: Event Manager has no user table; it reads `core.users`
 
 DAN-92 (EventManager PRs #30, #31). Users are referenced by `clerkId` everywhere in Event Manager's database; identity comes from `core.users`, read-only. App-specific per-user data stays in the app's own database keyed by `clerkId` (Event Manager: `usersettings`). If `core.users` does not have a user yet (webhook delay on first sign-up), the app asks the Clerk API instead and never writes `core`. This is the pattern for Journei and Bill Splitter (DAN-93).
