@@ -16,7 +16,7 @@ Created and set up in [DAN-82](https://linear.app/dangphamworkspace/issue/DAN-82
 - Webhooks: one endpoint, `https://core.dantepham.site/webhooks/clerk`, events `user.created/updated/deleted`, feeding `core.users` (DAN-91, see [core-users.md](core-users.md)). Its signing secret is `CLERK_WEBHOOK_SIGNING_SECRET` in Doppler `ecosystem-infra/prd`.
 - Hobby limits (checked 2026-10-24): 50,000 monthly retained users per app, shared by the whole ecosystem; up to 3 social providers.
 
-**Adding a new app or subdomain:** add it to Allowed subdomains (the `core` webhook subdomain is not a sign-in origin and needs neither) in Clerk **and** to `CLERK_AUTHORIZED_PARTIES` in Doppler `shared/prd`, then redeploy the apps.
+**Adding a new app or subdomain:** add it to Allowed subdomains (the `core` webhook subdomain is not a sign-in origin and needs neither) in Clerk **and** to `CLERK_AUTHORIZED_PARTIES` in Doppler `shared/prd`, then redeploy the apps. Every app's own `CLERK_AUTHORIZED_PARTIES` is `${shared.prd.CLERK_AUTHORIZED_PARTIES}` (since 2026-10-26), so all apps accept each other's session tokens; see decisions.md.
 
 ## Current state per app
 

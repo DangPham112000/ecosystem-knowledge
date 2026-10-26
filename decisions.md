@@ -2,6 +2,18 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-10-26: Apps call each other server to server with the user's session token
+
+DAN-95 (EventManager #32, Journei #54), the first data-sharing flow. Journei's backend calls Event Manager's GraphQL with the user's own Clerk session token, forwarded from the browser request, so Event Manager does its own ownership checks and no service account or shared secret exists. Rules for every cross-app call:
+
+- Every app trusts every ecosystem app: each app's `CLERK_AUTHORIZED_PARTIES` is `${shared.prd.CLERK_AUTHORIZED_PARTIES}`, one list of the real app origins in Doppler `shared/prd` (Dang's choice, 2026-10-26). A new app is added to that list once. No `*.dantepham.site` wildcard: a forgotten subdomain left pointing at a deleted service could be taken over.
+- Risk accepted: an XSS bug in one app lets its token reach the other apps. To limit that, a callee gives tokens from another app (`azp` other than its own origin) only what cross-app flows need, never anything that outlives the session: API keys, share links and settings stay own-app only (Event Manager: `requireOwnApp`). Each app adds the same check when it starts taking calls from other apps.
+- Calls stay on the shared `ecosystem` Docker network: the callee's backend gets a network alias `<app>-backend` (Event Manager: `event-manager-backend:4000`), because every stack has a service named `backend`.
+- The caller stores only an `{ app, id }` reference (Journei: `ScheduledActivity.calendarEvent`), and a failed call never fails the caller's own change; the user can retry ("Sync now").
+- MCP requests carry Clerk OAuth access tokens, which the other apps' GraphQL does not accept, so agent-made changes are synced later from the browser.
+
+DAN-94 (Journei → Bill Splitter) waits for Bill Splitter's own create-splitter feature (DAN-35); it will follow the same rules.
+
 ## 2026-10-26: Every app reads users from `core.users`; no app has its own user table
 
 DAN-93 (Journei #53, bill-splitter #6). Journei dropped its `users` collection: plans reference their owner by `clerkId`, moved on startup by email match in `core.users`, with a one-time dump in `backups/pre-dan-93.archive`. Bill Splitter never had a user table and now reads email, name and avatar from `core.users` too. Both use the same Clerk API fallback as Event Manager. Looking people up by email in `core.users` (for invites) exists only as an internal helper in each app: it is not exposed through any API until an invite feature needs it, because an open email lookup lets anyone probe who has an account.
