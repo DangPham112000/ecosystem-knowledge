@@ -2,7 +2,7 @@
 
 Shared knowledge base for Dang Pham's app ecosystem (Event Manager, Journei, News, Bill Splitter). Every project (Claude project or app repo) reads this repo before starting work and writes back here when a decision affects another app. How to update: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-_Last updated: 2026-11-10._
+_Last updated: 2026-11-11._
 
 ## At a glance
 
@@ -24,6 +24,7 @@ _Last updated: 2026-11-10._
 | [infra/vps-deploy.md](infra/vps-deploy.md) | VPS, deploy directories, GitHub Actions |
 | [infra/mongo.md](infra/mongo.md) | Shared MongoDB: users, databases, network |
 | [infra/core-users.md](infra/core-users.md) | `core.users` and the Clerk webhook service |
+| [infra/google-cloud.md](infra/google-cloud.md) | Google Cloud project `yolo-ecosystem`: OAuth, Gemini, billing |
 | [linear.md](linear.md) | Linear project, milestones, key issues |
 | [apps/event-manager.md](apps/event-manager.md) | Event Manager |
 | [apps/journei.md](apps/journei.md) | Journei (Journey Planner) |

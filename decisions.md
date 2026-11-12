@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-12: One Google Cloud project for the ecosystem; Gemini for receipt OCR
+
+Bill Splitter's receipt scan (DAN-116) is the first external AI API in the ecosystem. Dang chose Gemini Flash over Claude API and Tesseract.js because his Google AI Pro plan comes with monthly Google Cloud credits. It runs in the existing project `yolo-ecosystem` (already used for Clerk's Google sign-in) instead of a new project per app, on the paid tier so user data is not used for training, behind a spend-cap budget. Each app gets its own restricted key in its own Doppler project. Details in [infra/google-cloud.md](infra/google-cloud.md).
+
 ## 2026-11-10: Ecosystem apps share Event Manager's theme
 
 Dang asked for Bill Splitter's redesign (bill-splitter #14) to use Event Manager's main color. Event Manager's palette is now the shared look for every app: orange primary `oklch(0.60 0.19 45)` (`oklch(0.68 0.19 45)` in dark mode), violet-tinted neutrals (hue 275) and the Geist font. The tokens use shadcn-style names (`--primary`, `--background`, `--muted-foreground`, ...), so a component looks the same in every app. Source of truth: `frontend/src/index.css` in Event Manager. Bill Splitter copies those values and follows the system light or dark setting, while Event Manager defaults to dark. Journei and News keep their current colors until someone redesigns them; a redesign should start from these tokens.
