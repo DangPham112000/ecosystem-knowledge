@@ -1,6 +1,6 @@
 # Clerk
 
-_Updated 2026-10-25._
+_Updated 2026-11-12._
 
 ## Shared Clerk application
 
@@ -16,7 +16,9 @@ Created and set up in [DAN-82](https://linear.app/dangphamworkspace/issue/DAN-82
 - Webhooks: one endpoint, `https://core.dantepham.site/webhooks/clerk`, events `user.created/updated/deleted`, feeding `core.users` (DAN-91, see [core-users.md](core-users.md)). Its signing secret is `CLERK_WEBHOOK_SIGNING_SECRET` in Doppler `ecosystem-infra/prd`.
 - Hobby limits (checked 2026-10-24): 50,000 monthly retained users per app, shared by the whole ecosystem; up to 3 social providers.
 
-**Adding a new app or subdomain:** add it to Allowed subdomains (the `core` webhook subdomain is not a sign-in origin and needs neither) in Clerk **and** to `CLERK_AUTHORIZED_PARTIES` in Doppler `shared/prd`, then redeploy the apps. Every app's own `CLERK_AUTHORIZED_PARTIES` is `${shared.prd.CLERK_AUTHORIZED_PARTIES}` (since 2026-10-26), so all apps accept each other's session tokens; see decisions.md.
+- **Redirects after sign-in (2026-11-12):** the Account Portal falls back to the Clerk Home URL `https://dantepham.site` when it has no `redirect_url`. So apps never send users there: each app's `ClerkProvider` sets `signInUrl="/sign-in"`, `signUpUrl="/sign-up"` and both fallback redirect URLs to `/`, and the app serves `<SignIn routing="path">` / `<SignUp routing="path">` on those routes. Clerk Dashboard → Account Portal → Redirects should point the portal's fallbacks at a real page (see decisions.md).
+
+**Adding a new app or subdomain:** give it in-app `/sign-in` and `/sign-up` routes as above, add it to Allowed subdomains (the `core` webhook subdomain is not a sign-in origin and needs neither) in Clerk **and** to `CLERK_AUTHORIZED_PARTIES` in Doppler `shared/prd`, then redeploy the apps. Every app's own `CLERK_AUTHORIZED_PARTIES` is `${shared.prd.CLERK_AUTHORIZED_PARTIES}` (since 2026-10-26), so all apps accept each other's session tokens; see decisions.md.
 
 ## Current state per app
 

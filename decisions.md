@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-12: Every app signs in on its own domain, never on the Account Portal
+
+After signing in, Dang landed on `https://dantepham.site`, which had no site. The shared Clerk app's Account Portal (`accounts.dantepham.site`) sends people to the Clerk Home URL (the root domain) whenever it has no usable redirect, and one instance-wide fallback cannot point back to four different apps. Rule: every app sets `signInUrl="/sign-in"`, `signUpUrl="/sign-up"`, `signInFallbackRedirectUrl="/"` and `signUpFallbackRedirectUrl="/"` on `ClerkProvider` and serves Clerk's `<SignIn>` / `<SignUp>` on those routes (modal buttons are fine; the routes catch steps that need a full page). Event Manager and Journei already did; News (news #9) and Bill Splitter (bill-splitter #22) were changed. The Account Portal is only used by Clerk's OAuth consent for MCP connectors and by direct visits. See [infra/clerk.md](infra/clerk.md).
+
 ## 2026-11-12: Disabled controls always explain why, on hover and on tap
 
 Dang could not tell why Bill Splitter's "Make treasurer" button was disabled, and the `title` hint never shows on a phone. Rule for every app: a control disabled for a reason the user can act on shows that reason in a tooltip, on hover with a mouse, on tap on a touch screen, and on keyboard focus. Details and the reference component in [ui-guidelines.md](ui-guidelines.md) (bill-splitter #19).
