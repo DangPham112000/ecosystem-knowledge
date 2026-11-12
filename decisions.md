@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-12: A static homepage on the root domain lists every app
+
+Dang asked for a homepage at `https://dantepham.site` that shows all ecosystem apps. It is a static page (Dang chose no Clerk on it: sessions are already shared across subdomains) in `ecosystem-infra` (`home/`, ecosystem-infra #4), with the same "liquid glass" look as Bill Splitter. Any unknown path on the root domain shows the app list, so a sign-in redirect that lands there is never a dead end. **When an app is added, add a card to `home/site/index.html`.** Host ports now: Event Manager 8080, Journei 8081, News 8082, Bill Splitter 8083, core-users 8084, homepage 8085.
+
 ## 2026-11-12: Every app signs in on its own domain, never on the Account Portal
 
 After signing in, Dang landed on `https://dantepham.site`, which had no site. The shared Clerk app's Account Portal (`accounts.dantepham.site`) sends people to the Clerk Home URL (the root domain) whenever it has no usable redirect, and one instance-wide fallback cannot point back to four different apps. Rule: every app sets `signInUrl="/sign-in"`, `signUpUrl="/sign-up"`, `signInFallbackRedirectUrl="/"` and `signUpFallbackRedirectUrl="/"` on `ClerkProvider` and serves Clerk's `<SignIn>` / `<SignUp>` on those routes (modal buttons are fine; the routes catch steps that need a full page). Event Manager and Journei already did; News (news #9) and Bill Splitter (bill-splitter #22) were changed. The Account Portal is only used by Clerk's OAuth consent for MCP connectors and by direct visits. See [infra/clerk.md](infra/clerk.md).
