@@ -19,6 +19,7 @@ _Last updated: 2026-11-12._
 | [decisions.md](decisions.md) | Decision log, newest first |
 | [architecture.md](architecture.md) | Target architecture: SSO, shared users, data sharing |
 | [workflow.md](workflow.md) | Working style: production only, no mocks |
+| [ui-guidelines.md](ui-guidelines.md) | UI rules every app follows (disabled controls say why) |
 | [infra/clerk.md](infra/clerk.md) | Clerk: current state and plan |
 | [infra/doppler.md](infra/doppler.md) | Doppler: project layout, tokens, deploy |
 | [infra/vps-deploy.md](infra/vps-deploy.md) | VPS, deploy directories, GitHub Actions |
