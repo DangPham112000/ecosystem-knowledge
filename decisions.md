@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-12: Bill Splitter gets a "liquid glass" look on top of the shared theme
+
+Dang asked for Bill Splitter to follow the trending "liquid glass" style (bill-splitter #23). The shared palette and token names stay the same (see the 2026-11-10 entry); what changes is the surface style: translucent, blurred panes (`glass`, `glass-strong`, `glass-thumb`, `glass-primary` utilities in Bill Splitter's `frontend/src/index.css`) over a soft fixed backdrop of orange, violet and teal light, capsule buttons and `rounded-3xl` cards. `--card`, `--muted`, `--accent`, `--border`, `--input` and `--primary-soft` are translucent there. Text must keep the contrast of the solid theme: dialogs and bars use the more opaque glass, and browsers without `backdrop-filter` or with `prefers-reduced-transparency` get solid panes. Only Bill Splitter for now; another app that wants the same look copies those utilities and token values rather than inventing new ones.
+
 ## 2026-11-12: Disabled controls always explain why, on hover and on tap
 
 Dang could not tell why Bill Splitter's "Make treasurer" button was disabled, and the `title` hint never shows on a phone. Rule for every app: a control disabled for a reason the user can act on shows that reason in a tooltip, on hover with a mouse, on tap on a touch screen, and on keyboard focus. Details and the reference component in [ui-guidelines.md](ui-guidelines.md) (bill-splitter #19).

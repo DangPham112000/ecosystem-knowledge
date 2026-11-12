@@ -1,6 +1,6 @@
 # UI guidelines
 
-Rules every app's UI follows. Shared look (colors, tokens, font): see the 2026-11-10 theme entry in [decisions.md](decisions.md).
+Rules every app's UI follows. Shared look (colors, tokens, font): see the 2026-11-10 theme entry in [decisions.md](decisions.md). Bill Splitter's "liquid glass" surface style, for an app that wants it: the 2026-11-12 entry there.
 
 ## Disabled controls say why
 
