@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-12: A static homepage on the root domain lists every app
+
+Dang asked for a homepage at `https://dantepham.site` that shows all ecosystem apps. It is a static page (Dang chose no Clerk on it: sessions are already shared across subdomains) in `ecosystem-infra` (`home/`, ecosystem-infra #4), with the same "liquid glass" look as Bill Splitter. Any unknown path on the root domain shows the app list, so a sign-in redirect that lands there is never a dead end. **When an app is added, add a card to `home/site/index.html`.** Host ports now: Event Manager 8080, Journei 8081, News 8082, Bill Splitter 8083, core-users 8084, homepage 8085.
+
 ## 2026-11-12: Bill Splitter gets a "liquid glass" look on top of the shared theme
 
 Dang asked for Bill Splitter to follow the trending "liquid glass" style (bill-splitter #23). The shared palette and token names stay the same (see the 2026-11-10 entry); what changes is the surface style: translucent, blurred panes (`glass`, `glass-strong`, `glass-thumb`, `glass-primary` utilities in Bill Splitter's `frontend/src/index.css`) over a soft fixed backdrop of orange, violet and teal light, capsule buttons and `rounded-3xl` cards. `--card`, `--muted`, `--accent`, `--border`, `--input` and `--primary-soft` are translucent there. Text must keep the contrast of the solid theme: dialogs and bars use the more opaque glass, and browsers without `backdrop-filter` or with `prefers-reduced-transparency` get solid panes. Only Bill Splitter for now; another app that wants the same look copies those utilities and token values rather than inventing new ones.
