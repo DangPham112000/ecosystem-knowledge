@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-12: Disabled controls always explain why, on hover and on tap
+
+Dang could not tell why Bill Splitter's "Make treasurer" button was disabled, and the `title` hint never shows on a phone. Rule for every app: a control disabled for a reason the user can act on shows that reason in a tooltip, on hover with a mouse, on tap on a touch screen, and on keyboard focus. Details and the reference component in [ui-guidelines.md](ui-guidelines.md) (bill-splitter #19).
+
 ## 2026-11-12: One Google Cloud project for the ecosystem; Gemini for receipt OCR
 
 Bill Splitter's receipt scan (DAN-116) is the first external AI API in the ecosystem. Dang chose Gemini Flash over Claude API and Tesseract.js because his Google AI Pro plan comes with monthly Google Cloud credits. It runs in the existing project `yolo-ecosystem` (already used for Clerk's Google sign-in) instead of a new project per app, on the paid tier so user data is not used for training, behind a spend-cap budget. Each app gets its own restricted key in its own Doppler project. Details in [infra/google-cloud.md](infra/google-cloud.md).
