@@ -24,6 +24,7 @@ _Last updated: 2026-11-11._
 | [infra/vps-deploy.md](infra/vps-deploy.md) | VPS, deploy directories, GitHub Actions |
 | [infra/mongo.md](infra/mongo.md) | Shared MongoDB: users, databases, network |
 | [infra/core-users.md](infra/core-users.md) | `core.users` and the Clerk webhook service |
+| [infra/google-cloud.md](infra/google-cloud.md) | Google Cloud project `yolo-ecosystem`: OAuth, Gemini, billing |
 | [linear.md](linear.md) | Linear project, milestones, key issues |
 | [apps/event-manager.md](apps/event-manager.md) | Event Manager |
 | [apps/journei.md](apps/journei.md) | Journei (Journey Planner) |
