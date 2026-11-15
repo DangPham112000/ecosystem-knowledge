@@ -24,6 +24,7 @@ How every ecosystem app (Event Manager, Journei, News, Bill Splitter, the homepa
 - **Forms show only required fields by default.** Optional fields sit behind a single toggle ("More options", a switch or a disclosure row). Rules:
   - The toggle starts **off** when creating, and starts **on** when editing an object that already has optional values, so nothing the user entered is hidden.
   - Every optional field has a sensible default (current time zone, VND, "now + 1 hour", the user as payer), so submitting with the toggle off always works.
+  - **Defaults are never invisible.** While the toggle is off, the defaults that will be saved are shown as a short line of read-only text, so nothing appears after saving that the user did not see. Example (Bill Splitter, add expense): under Name and Amount, the line "Paid by you · split equally between 4 · VND · today". Tapping the line (or any value in it) turns the toggle on and opens that field for editing. Defaults that save nothing (an empty description or location) are not listed.
   - Remember the toggle per form in `localStorage` only as a convenience; never store data there.
 - Fewer fields beats clever layout: if a field can be inferred (an icon from the title, a currency from the destination, an end time from the start time), infer it and let the user change it afterwards in place.
 - A form never asks for something an agent or another app already knows (attendees already in the Event Manager event, members already in the splitter).
@@ -82,7 +83,7 @@ Rules for every app's MCP server, so an agent can do everything the forms do, sa
 
 - [ ] The screen shows the information first; at most one primary button.
 - [ ] Values edit in place; no separate edit page.
-- [ ] The form shows only required fields; optional ones behind the toggle, with defaults.
+- [ ] The form shows only required fields; optional ones behind the toggle, with defaults shown as read-only text.
 - [ ] The same create or edit exists as an MCP tool with the same rules, and a read or check tool if the agent needs to look before writing.
 - [ ] Tool annotations, server instructions and descriptions are updated.
 - [ ] Glass look and shared tokens; disabled controls explain why ([ui-guidelines.md](ui-guidelines.md)).
