@@ -47,7 +47,8 @@ Rules for every app's MCP server, so an agent can do everything the forms do, sa
 ### Server
 
 - Endpoint `POST /mcp`, Streamable HTTP, stateless (a fresh server per request) as in Event Manager and Journei.
-- **Two ways in:** Clerk OAuth (for claude.ai and other connector UIs) and a personal API key (for headless bots and scripts, e.g. Event Manager `emk_`, News `nwk_`). An app that has only one of them should add the other.
+- **Two ways in:** Clerk OAuth (for claude.ai and other connector UIs) and a personal API key (for headless bots and scripts, e.g. Event Manager `emk_`, News `nwk_`, Bill Splitter `bsk_`). An app that has only one of them should add the other. Only the app itself may create or revoke keys: refuse session tokens issued to another ecosystem app (Event Manager `requireOwnApp`, Bill Splitter the same).
+- **Apps with device-bound rights** (Bill Splitter) give each account one server-side "AI agent" device, so agent writes follow the same device rules as a phone's.
 - **Server `instructions` give the agent its context**, built per request: whose data this is, the current time and the user's time zone, the format for times (ISO 8601 with offset), and the app's rules in one line each (for example "only events the user created can be updated"). Event Manager's `createMcpServer` is the model.
 - For recurring jobs, publish an MCP **prompt** that spells out the workflow (News `update_topic_news`), so the user does not have to write it.
 
@@ -76,7 +77,7 @@ Rules for every app's MCP server, so an agent can do everything the forms do, sa
 | Event Manager | `list_events`, `get_event`, `check_availability`, `find_conflicts`, `create_event`, `update_event`, `delete_event`; Clerk OAuth + `emk_` keys | Reference implementation. Add tools for any new form field (attendees, sharing) as they appear. |
 | Journei | `list_plans`, `get_plan`, `list_destinations`, `list_categories`, `create_destination`, `create_category`, `recommended_places`, `create_plan`, `update_plan`, `create_place`, `update_place`, `create_scheduled_activity`, `update_scheduled_activity`; Clerk OAuth | Add server `instructions` (time zone, rules) and a read-only check that exposes `calendarConflicts`, so an agent can warn before scheduling. No API-key path for bots yet. |
 | News | `list_topics`, `list_news`, `upsert_news`, prompt `update_topic_news`; `nwk_` keys only | Clerk OAuth so claude.ai connectors work; tools for any topic management the UI offers. |
-| Bill Splitter | none | Highest-value gap: entering expenses is the main form. Suggested first tools: `list_splitters`, `get_splitter` (members, expenses, balances, suggested transfers), `create_splitter`, `add_expense` / `update_expense` with a duplicate guard, `add_member`. Device-bound anonymous members stay UI only; the MCP acts as the signed-in user. |
+| Bill Splitter | `list_splitters`, `get_splitter`, `check_duplicate_expense`, `create_splitter`, `add_member`, `add_expense`, `update_expense` (duplicate guard with `allowDuplicate`); Clerk OAuth + `bsk_` keys (DAN-125) | Tools for new forms as they land: fund contributions, transfers marked done, income, splitter settings (`update_splitter`), member rename and treasurer role. Device-bound anonymous members stay UI only; the MCP acts as the signed-in user. |
 | Homepage | not applicable | Static; follows the visual baseline only. |
 
 ## Checklist for a new feature

@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-15: Bill Splitter's MCP acts as the signed-in user from an "AI agent" device
+
+Bill Splitter's MCP server (DAN-125, bill-splitter #24) follows design-principles §6. Two choices other apps may meet again: (1) an agent acts only as the signed-in account, so names picked anonymously on a phone are not reachable over MCP; (2) since Bill Splitter binds edit rights to the device an entry was added on (DAN-47), each account gets one server-side device labelled "AI agent" whose id never leaves the server, and what the agent adds is editable by the agent, the admin and treasurers. Duplicate expenses use the same guard pattern as Event Manager's conflicts (`allowDuplicate`). API keys use the `bsk_` prefix and, like Event Manager's, cannot be minted with another app's session token.
+
 ## 2026-11-15: Every app is designed agent-first, with information-first UI and minimal forms
 
 Dang set the design direction for every app: users mainly create and edit data through AI agents (their own, connected to our MCP servers, or bots we build), and agents also surface information (for example Event Manager checks the calendar before creating an event). The web UI focuses on showing information and quick in-place edits; buttons are few and forms show only required fields, with a toggle for optional ones. Consequences: any create or edit a form offers must also exist as an MCP tool with the same rules (deletes may stay UI only), writes that could surprise the user check first and refuse with the reason, and Bill Splitter's liquid-glass look stays the visual baseline. Full guide and per-app gaps: [design-principles.md](design-principles.md).
