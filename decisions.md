@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-15: Every app is designed agent-first, with information-first UI and minimal forms
+
+Dang set the design direction for every app: users mainly create and edit data through AI agents (their own, connected to our MCP servers, or bots we build), and agents also surface information (for example Event Manager checks the calendar before creating an event). The web UI focuses on showing information and quick in-place edits; buttons are few and forms show only required fields, with a toggle for optional ones. Consequences: any create or edit a form offers must also exist as an MCP tool with the same rules (deletes may stay UI only), writes that could surprise the user check first and refuse with the reason, and Bill Splitter's liquid-glass look stays the visual baseline. Full guide and per-app gaps: [design-principles.md](design-principles.md).
+
 ## 2026-11-12: A static homepage on the root domain lists every app
 
 Dang asked for a homepage at `https://dantepham.site` that shows all ecosystem apps. It is a static page (Dang chose no Clerk on it: sessions are already shared across subdomains) in `ecosystem-infra` (`home/`, ecosystem-infra #4), with the same "liquid glass" look as Bill Splitter. Any unknown path on the root domain shows the app list, so a sign-in redirect that lands there is never a dead end. **When an app is added, add a card to `home/site/index.html`.** Host ports now: Event Manager 8080, Journei 8081, News 8082, Bill Splitter 8083, core-users 8084, homepage 8085.

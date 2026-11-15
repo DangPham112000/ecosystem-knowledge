@@ -2,7 +2,7 @@
 
 Shared knowledge base for Dang Pham's app ecosystem (Event Manager, Journei, News, Bill Splitter). Every project (Claude project or app repo) reads this repo before starting work and writes back here when a decision affects another app. How to update: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-_Last updated: 2026-11-12._
+_Last updated: 2026-11-15._
 
 ## At a glance
 
@@ -19,6 +19,7 @@ _Last updated: 2026-11-12._
 | [decisions.md](decisions.md) | Decision log, newest first |
 | [architecture.md](architecture.md) | Target architecture: SSO, shared users, data sharing |
 | [workflow.md](workflow.md) | Working style: production only, no mocks |
+| [design-principles.md](design-principles.md) | Design principles: agent-first, information-first UI, minimal forms, MCP tool design |
 | [ui-guidelines.md](ui-guidelines.md) | UI rules every app follows (disabled controls say why) |
 | [infra/clerk.md](infra/clerk.md) | Clerk: current state and plan |
 | [infra/doppler.md](infra/doppler.md) | Doppler: project layout, tokens, deploy |
