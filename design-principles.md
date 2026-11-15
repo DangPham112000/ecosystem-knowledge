@@ -26,6 +26,8 @@ How every ecosystem app (Event Manager, Journei, News, Bill Splitter, the homepa
   - Every optional field has a sensible default (current time zone, VND, "now + 1 hour", the user as payer), so submitting with the toggle off always works.
   - **Defaults are never invisible.** While the toggle is off, the defaults that will be saved are shown as a short line of read-only text, so nothing appears after saving that the user did not see. Example (Bill Splitter, add expense): under Name and Amount, the line "Paid by you · split equally between 4 · VND · today". Tapping the line (or any value in it) turns the toggle on and opens that field for editing. Defaults that save nothing (an empty description or location) are not listed.
   - Remember the toggle per form in `localStorage` only as a convenience; never store data there.
+  - An error in a hidden field (a split that does not add up, a missing name) turns the toggle on and focuses that field.
+  - Reference implementation: Bill Splitter's `MoreOptionsToggle` (`frontend/src/components/MoreOptions.tsx`) and `useMoreOptions` (`frontend/src/lib/moreOptions.ts`), used on the expense and splitter forms (DAN-131, bill-splitter #25). Copy them rather than inventing a new pattern.
 - Fewer fields beats clever layout: if a field can be inferred (an icon from the title, a currency from the destination, an end time from the start time), infer it and let the user change it afterwards in place.
 - A form never asks for something an agent or another app already knows (attendees already in the Event Manager event, members already in the splitter).
 
