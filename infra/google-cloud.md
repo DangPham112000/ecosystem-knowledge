@@ -2,7 +2,7 @@
 
 One Google Cloud project for the whole ecosystem: **`yolo-ecosystem`** (project number 320304558326), owned by Dang. Reuse it; don't create a project per app.
 
-**Google is the ecosystem's second platform after GitHub** (decided 2026-11-20). Dang pays for the Google AI Pro plan, which comes with a small amount of Google Cloud credit every month. When an app needs a hosted service (monitoring, storage, scheduled jobs, AI), first check whether GitHub or Google Cloud in `yolo-ecosystem` covers it, before adding another third-party service.
+**Google is the ecosystem's second platform after GitHub** (decided 2026-11-20). Dang pays for the Google AI Pro plan, which comes with a small amount of Google Cloud credit every month. When an app needs a hosted service (monitoring, storage, scheduled jobs, AI), first check whether GitHub, Google Cloud in `yolo-ecosystem` or Cloudflare's free plan ([cloudflare.md](cloudflare.md)) covers it, before adding another third-party service.
 
 | Use | Since | Details |
 | --- | --- | --- |
@@ -22,7 +22,7 @@ One Google Cloud project for the whole ecosystem: **`yolo-ecosystem`** (project 
 
 Not set up yet; listed so other apps reuse the same project and credit:
 
-- Cloud Storage bucket for MongoDB backups of the shared `ecosystem-mongo` (DAN-64, before the first real users).
+- Cloud Storage bucket for MongoDB backups of the shared `ecosystem-mongo` (DAN-64, before the first real users). Cloudflare R2 is the alternative.
 - Cloud Scheduler / Cloud Run jobs for scheduled work that should not run on the VPS.
 
 ## Rules

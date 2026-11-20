@@ -2,9 +2,9 @@
 
 Newest first. Each entry: date, decision, reason.
 
-## 2026-11-20: Use GitHub and Google Cloud before any other third-party service
+## 2026-11-20: Use GitHub, Google Cloud and Cloudflare before any other third-party service
 
-Dang does not want to depend on more third-party services. Besides GitHub, the ecosystem uses Google: Dang's Google AI Pro plan comes with monthly Google Cloud credit, and the project `yolo-ecosystem` is already set up (Clerk's Google sign-in, Gemini). So when an app needs a hosted service, first use GitHub (Actions, GHCR) or Google Cloud in `yolo-ecosystem`. The first case is uptime monitoring for Journei (DAN-65): a Cloud Monitoring uptime check on `/health` instead of UptimeRobot or Better Stack, because a monitor on the VPS itself cannot report the VPS going down. Details in [infra/google-cloud.md](infra/google-cloud.md).
+Dang does not want to depend on more third-party services. Besides GitHub, the ecosystem uses Google: Dang's Google AI Pro plan comes with monthly Google Cloud credit, and the project `yolo-ecosystem` is already set up (Clerk's Google sign-in, Gemini). Cloudflare (free plan, already used for DNS and TLS) is the third option. So when an app needs a hosted service, first use GitHub (Actions, GHCR), Google Cloud in `yolo-ecosystem`, or Cloudflare's free plan ([infra/cloudflare.md](infra/cloudflare.md)). The first case is uptime monitoring for Journei (DAN-65): a Cloud Monitoring uptime check on `/health` instead of UptimeRobot or Better Stack, because a monitor on the VPS itself cannot report the VPS going down. Details in [infra/google-cloud.md](infra/google-cloud.md).
 
 ## 2026-11-15: Bill Splitter's MCP acts as the signed-in user from an "AI agent" device
 
