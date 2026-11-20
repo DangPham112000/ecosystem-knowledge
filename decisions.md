@@ -2,6 +2,10 @@
 
 Newest first. Each entry: date, decision, reason.
 
+## 2026-11-20: Use GitHub and Google Cloud before any other third-party service
+
+Dang does not want to depend on more third-party services. Besides GitHub, the ecosystem uses Google: Dang's Google AI Pro plan comes with monthly Google Cloud credit, and the project `yolo-ecosystem` is already set up (Clerk's Google sign-in, Gemini). So when an app needs a hosted service, first use GitHub (Actions, GHCR) or Google Cloud in `yolo-ecosystem`. The first case is uptime monitoring for Journei (DAN-65): a Cloud Monitoring uptime check on `/health` instead of UptimeRobot or Better Stack, because a monitor on the VPS itself cannot report the VPS going down. Details in [infra/google-cloud.md](infra/google-cloud.md).
+
 ## 2026-11-15: Bill Splitter's MCP acts as the signed-in user from an "AI agent" device
 
 Bill Splitter's MCP server (DAN-125, bill-splitter #24) follows design-principles §6. Two choices other apps may meet again: (1) an agent acts only as the signed-in account, so names picked anonymously on a phone are not reachable over MCP; (2) since Bill Splitter binds edit rights to the device an entry was added on (DAN-47), each account gets one server-side device labelled "AI agent" whose id never leaves the server, and what the agent adds is editable by the agent, the admin and treasurers. Duplicate expenses use the same guard pattern as Event Manager's conflicts (`allowDuplicate`). API keys use the `bsk_` prefix and, like Event Manager's, cannot be minted with another app's session token.
