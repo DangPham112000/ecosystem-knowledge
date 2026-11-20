@@ -8,7 +8,7 @@ _Last updated: 2026-11-20._
 
 - Apps run on subdomains of `dantepham.site`, on one shared VPS, each with its own Docker Compose + nginx. The root domain `https://dantepham.site` is a static homepage listing every app (`ecosystem-infra`, `home/`).
 - Goal: **one shared Clerk application** for the whole ecosystem (`yolo-ecosystem`, created in DAN-82), **one thin shared user table** (`core.users`, synced by a Clerk webhook), and **data sharing through APIs**, never by reading another app's database.
-- Hosted services come from **GitHub** and **Google Cloud** (`yolo-ecosystem`, paid by the monthly credit of Dang's Google AI Pro plan) before any other third party.
+- Hosted services come from **GitHub** and **Google Cloud** (`yolo-ecosystem`, paid by the monthly credit of Dang's Google AI Pro plan) or **Cloudflare** (free plan) before any other third party.
 - Secrets live in **Doppler**: a `shared` project plus one project per app, with a single `prd` environment.
 - **No dev or staging environment**: changes are verified directly on production after deploy.
 - Work is tracked in **Linear**, project "Ecosystem: đăng nhập và dữ liệu dùng chung" (DAN-82..DAN-109).
@@ -27,6 +27,7 @@ _Last updated: 2026-11-20._
 | [infra/vps-deploy.md](infra/vps-deploy.md) | VPS, deploy directories, GitHub Actions |
 | [infra/mongo.md](infra/mongo.md) | Shared MongoDB: users, databases, network |
 | [infra/core-users.md](infra/core-users.md) | `core.users` and the Clerk webhook service |
+| [infra/cloudflare.md](infra/cloudflare.md) | Cloudflare: DNS, TLS and free-plan candidates |
 | [infra/google-cloud.md](infra/google-cloud.md) | Google Cloud project `yolo-ecosystem`: OAuth, Gemini, billing |
 | [linear.md](linear.md) | Linear project, milestones, key issues |
 | [apps/event-manager.md](apps/event-manager.md) | Event Manager |
