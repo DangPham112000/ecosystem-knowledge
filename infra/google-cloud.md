@@ -7,7 +7,7 @@ One Google Cloud project for the whole ecosystem: **`yolo-ecosystem`** (project 
 | Use | Since | Details |
 | --- | --- | --- |
 | Google sign-in for the shared Clerk app | 2026-10-24 (DAN-82) | Custom OAuth credentials, consent screen External and published. See [clerk.md](clerk.md). |
-| Uptime checks (planned, DAN-65) | 2026-11-20 (proposed) | Cloud Monitoring uptime check on each app's health URL (Journei: `https://journei.dantepham.site/health`, Journei #56), with an alerting policy that emails Dang. Runs outside the VPS, so it also catches the whole VPS going down. |
+| Uptime checks | 2026-11-20 (DAN-65) | Cloud Monitoring uptime check `journei-health`: HTTPS `https://journei.dantepham.site/health` (Journei #56) every 5 minutes from several regions, passes only on 2xx containing `"status":"ok"`. Alerting policy `Journei down` emails Dang after 5 minutes of failures. Runs outside the VPS, so it also catches the whole VPS going down. Other apps: add a `/health` endpoint and their own uptime check the same way. |
 | Gemini API for Bill Splitter receipt OCR | 2026-11-12 (set up; code in DAN-116) | Gemini API (Generative Language API) enabled, Tier 1 (paid). Key `bill-splitter-receipt-ocr`, restricted to that API, stored as `GEMINI_API_KEY` in Doppler `bill-splitter/prd`. |
 
 ## Billing
